@@ -1,0 +1,5 @@
+services:
+  db:
+    volumes:
+      - lazy-lab-db-cache:/var/lib/postgresql/data
+    env_file: ${COMPOSE_FILE}/@compose/envs/dev.env  

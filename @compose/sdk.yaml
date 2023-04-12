@@ -1,0 +1,9 @@
+services:
+  typegen:
+    image: openapitools/openapi-generator-cli
+    command: >
+      generate -i http://nginx/api/openapi.json -g typescript-axios -o /ui/sdk/auto-client --additional-properties=withInterfaces=true
+    volumes:
+      - ./services/ui//src/sdk:/ui/sdk
+    profiles:
+      - sdk

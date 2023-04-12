@@ -1,0 +1,7 @@
+x-silent: &silent
+    logging:
+      driver: none
+
+services:
+  db:
+    <<: *silent

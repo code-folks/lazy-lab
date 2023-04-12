@@ -1,25 +1,39 @@
 # syntax=docker/dockerfile:1
-ARG PYTHON_VERSION=python:3.10
-ARG RUNTIME_DIR=/runtime/app
-ARG PROJECT_DIR=app
+ARG PYTHON_VERSION=3.10
+FROM python:$PYTHON_VERSION-slim-buster as dependencies
 
-FROM $PYTHON_VERSION-slim-buster
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
+ARG APP_RUNTIME=/runtime/app
+
+ENV APP_ROOT=$APP_RUNTIME
 ENV POETRY_VERSION=1.4 \
     POETRY_VIRTUALENVS_CREATE=false
 
-# Install poetry
-RUN pip install "poetry==$POETRY_VERSION"
+# Install updates and poetry
+RUN apt-get install -y --no-install-recommends build-essential libpq-dev \
+    && pip install "poetry==$POETRY_VERSION" \
+    && useradd -U runtime_user
 
 # Copy only requirements to cache them in docker layer
-WORKDIR $RUNTIME_DIR
-COPY poetry.lock pyproject.toml $RUNTIME_DIR/
+COPY poetry.lock pyproject.toml /runtime/
+WORKDIR /runtime
 
 # Project initialization:
 RUN poetry install --no-interaction --no-ansi --no-root --no-dev
 
+FROM dependencies as base
 # Copy Python code to the Docker image
-COPY $PROJECT_DIR $RUNTIME_DIR/$PROJECT_DIR/
+USER runtime_user:runtime_user
+COPY --chown=runtime_user:runtime_user app $APP_RUNTIME
+RUN chmod +x $APP_RUNTIME/docker/*.sh
 
-CMD [ "python", "handy_scan/foo.py"]
+WORKDIR $APP_RUNTIME
 
+CMD ["docker/postgres_waiter.sh", "uvicorn", "--host", "0.0.0.0", "--reload", "--loop", "uvloop", "--port", "8000", "--root-path", "/api", "--server-header", "lazy_lab.asgi:application" ]
+
+FROM base as dev
+
+RUN docker/django_automigrate.sh
+CMD ["docker/postgres_waiter.sh", "python", "manage.py", "runserver", "0.0.0.0:8000"]
