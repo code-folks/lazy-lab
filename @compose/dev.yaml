@@ -1,5 +1,18 @@
+volumes:
+# We cache pip so we dont need to populate it everytime
+  lazy-lab-db-cache:
+
+x-dev: &shared-dev
+  env_file: ./@compose/envs/dev.env
+
 services:
   db:
     volumes:
       - lazy-lab-db-cache:/var/lib/postgresql/data
-    env_file: ${COMPOSE_FILE}/@compose/envs/dev.env  
+      - ./dev_data/db_init:/docker-entrypoint-initdb.d
+    <<: *shared-dev
+# -------------------------------------------------
+  core:
+    volumes:
+      - ./services/core-api/app:/runtime/app
+    <<: *shared-dev

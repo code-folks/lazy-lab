@@ -23,13 +23,11 @@ try:
     )  
 except OperationalError:  
     sys.exit(-1)  
-END  
+END
 }
 
 until postgres_ready; do  
   >&2 echo "Waiting for PostgreSQL to become available..."  
   sleep 5  
-done  
+done
 >&2 echo "PostgreSQL is available"
-
-exec "$@"

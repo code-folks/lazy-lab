@@ -1,11 +1,12 @@
-version: '3.8'
+version: '3.7'
 name: 'lazy-lab'
 # ==================================
 volumes:
 # We cache pip so we dont need to populate it everytime
   pip-cache:
 
-x-common: &common
+x-common: 
+    &common
     restart: on-failure
     logging:
       options:
@@ -15,7 +16,7 @@ x-common: &common
 services:
 # ----------------------------------
   db:
-    image: postgres:14-alpine
+    image: postgres:14-bullseye
     profiles:
       - essential
       - sdk
@@ -34,16 +35,6 @@ services:
       - db
     <<: *common
 # ----------------------------------
-
-    # volumes:
-    #   - ./services/core-api/app:/runtime/app
-    #   # - pip-cache:/runtime/pip-cache
-    # restart: on-failure
-    # logging:
-    #   options: 
-    #     max-size: "100k"
-    #     max-file: "5"
-
   # ui:
   #   build:
   #     context: services/ui
@@ -58,9 +49,7 @@ services:
   #     options: 
   #       max-size: "200k"
   #       max-file: "10"
-
-
-
+  
   # mailhog:
   #   image: mailhog/mailhog
   #   ports:

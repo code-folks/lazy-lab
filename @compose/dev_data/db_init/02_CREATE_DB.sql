@@ -1,0 +1,2 @@
+CREATE DATABASE lazylab;
+GRANT ALL PRIVILEGES ON DATABASE lazylab TO lazylab;

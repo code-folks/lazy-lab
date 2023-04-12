@@ -12,7 +12,7 @@ ENV POETRY_VERSION=1.4 \
     POETRY_VIRTUALENVS_CREATE=false
 
 # Install updates and poetry
-RUN apt-get install -y --no-install-recommends build-essential libpq-dev \
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential libpq-dev \
     && pip install "poetry==$POETRY_VERSION" \
     && useradd -U runtime_user
 
@@ -27,13 +27,11 @@ FROM dependencies as base
 # Copy Python code to the Docker image
 USER runtime_user:runtime_user
 COPY --chown=runtime_user:runtime_user app $APP_RUNTIME
-RUN chmod +x $APP_RUNTIME/docker/*.sh
-
 WORKDIR $APP_RUNTIME
+RUN chmod +x ./docker/*.sh
 
-CMD ["docker/postgres_waiter.sh", "uvicorn", "--host", "0.0.0.0", "--reload", "--loop", "uvloop", "--port", "8000", "--root-path", "/api", "--server-header", "lazy_lab.asgi:application" ]
+CMD ["docker/container_bootstrap.sh", "uvicorn", "--host", "0.0.0.0", "--reload", "--loop", "uvloop", "--port", "8000", "--root-path", "/api", "--server-header", "lazy_lab.asgi:application" ]
 
 FROM base as dev
-
-RUN docker/django_automigrate.sh
-CMD ["docker/postgres_waiter.sh", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Dev env has the automigration included
+ENV AUTOMIGRATE=True
