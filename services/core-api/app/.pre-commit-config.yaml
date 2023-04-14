@@ -1,10 +1,46 @@
+
+exclude: "^docs/|/migrations/|.git|tox"
+default_stages: [commit]
+
 repos:
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: "v0.0.230"
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
     hooks:
-      - id: ruff
-      
+      - id: trailing-whitespace
+        # files: ^backend/
+        exclude: ^.*/snapshots/.*
+      - id: end-of-file-fixer
+        # files: ^backend/
+      - id: check-yaml
+        args: ['--unsafe']
+      - id: name-tests-test
+        args: ['--pytest']
+
   - repo: https://github.com/psf/black
-    rev: "22.8.0"
+    rev: 23.3.0
     hooks:
       - id: black
+        args: [--config=services/core-api/pyproject.toml]
+        types: [python]
+        # pre commit passes all changed files to black as arguments, this bypasses the
+        # exludes configuration in our pyproject.toml, see https://github.com/psf/black/issues/1778
+        exclude: ^.*/snapshots/.*
+
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.0.261"
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix, --config=services/core-api/pyproject.toml]
+  # - repo: https://github.com/pycqa/flake8
+  #   rev: 4.0.1
+  #   hooks:
+  #   - id: flake8
+  #     args: [--config=backend/tox.ini, backend/]
+  #     exclude: ^.*/snapshots/.*
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: [--sp=services/core-api/pyproject.toml]
