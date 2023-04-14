@@ -5,7 +5,7 @@ volumes:
 # We cache pip so we dont need to populate it everytime
   pip-cache:
 
-x-common: 
+x-common:
     &common
     restart: on-failure
     logging:
