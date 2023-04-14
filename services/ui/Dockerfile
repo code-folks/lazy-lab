@@ -1,21 +1,21 @@
 # Stage 1 - build frontend app
-ARG PROJECT_DIR=handy-scan
-ARG RUNTIME_DIR=/runtime/app
-ARG NODE_VERSION=18
+ARG NODE_VERSION=18.16
 
-FROM node:${NODE_VERSION}-alpine as build-deps
+FROM node:${NODE_VERSION}-bullseye as dependencies
 
+ARG APP_RUNTIME=/runtime/app
+ARG PROJECT_DIR=lazy-lab
 
-RUN mkdir --parents $RUNTIME_DIR
+ENV APP_ROOT=$APP_RUNTIME
+
+RUN useradd -U runtime_user && mkdir --parents $APP_ROOT && chown -R runtime_user:runtime_user $APP_ROOT
 COPY $PROJECT_DIR/package.json $PROJECT_DIR/yarn.lock $RUNTIME_DIR/
 
-WORKDIR $RUNTIME_DIR/
-RUN yarn install --pure-lockfile
+WORKDIR $APP_ROOT
+RUN yarn install --non-interactive --pure-lockfile
 
-COPY $PROJECT_DIR $RUNTIME_DIR
-# COPY .env $RUNTIME_DIR/.env
+FROM dependencies as base
 
-EXPOSE 8080
+COPY --chown=runtime_user:runtime_user $PROJECT_DIR $APP_ROOT
 
 CMD ["yarn", "serve"]
-

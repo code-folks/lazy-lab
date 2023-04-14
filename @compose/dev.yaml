@@ -19,3 +19,11 @@ services:
       - "8000:8000"
     command: python manage.py runserver 0.0.0.0:8000
     <<: *shared-dev
+# -------------------------------------------------
+  ui:
+    volumes:
+      - ./services/ui/lazy-lab:/runtime/app
+    ports:
+      - "9000:9000"
+    command: yarn run dev --host 0.0.0.0 --port 9000
+    <<: *shared-dev

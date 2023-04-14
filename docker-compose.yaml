@@ -35,21 +35,15 @@ services:
       - db
     <<: *common
 # ----------------------------------
-  # ui:
-  #   build:
-  #     context: services/ui
-  #   image: tenschool-ui
-  #   command: yarn serve
-  #   volumes:
-  #     - ./.env:/runtime/app/.env:ro
-  #     - ./services/ui/ten-school:/runtime/app
-  #   working_dir: /runtime/app
-  #   restart: on-failure
-  #   logging:
-  #     options: 
-  #       max-size: "200k"
-  #       max-file: "10"
-  
+  ui:
+    image: ${COMPOSE_PROJECT_NAME}-ui
+    build:
+      context: services/ui
+    profiles:
+      - essential
+      - sdk
+    restart: on-failure
+    <<: *common
   # mailhog:
   #   image: mailhog/mailhog
   #   ports:
