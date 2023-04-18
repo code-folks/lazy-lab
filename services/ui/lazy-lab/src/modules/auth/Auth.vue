@@ -1,7 +1,7 @@
 <template>
   <div class="relative container overflow-visible">
     <div
-      class="relative z-10 flex min-h-full items-center shadow justify-center rounded bg-white dark:bg-slate-800 px-8 py-16 sm:px-6 lg:px-12">
+      class="relative z-10 flex min-h-full items-center shadow justify-center rounded bg-white px-8 py-16 sm:px-6 lg:px-12">
       <div class="w-full max-w-md space-y-8">
         <div>
           <img class="mx-auto h-16 w-auto" src="/logos/lazy-lab-logo-7.svg" alt="Your Company" />

@@ -9,7 +9,7 @@
    version="1.1"
    id="svg4"
    sodipodi:docname="lazy-lab-logo-6.svg"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,26 +24,35 @@
      inkscape:pagecheckerboard="1"
      showgrid="false"
      inkscape:zoom="2.2539888"
-     inkscape:cx="91.837191"
-     inkscape:cy="115.35106"
+     inkscape:cx="92.05902"
+     inkscape:cy="115.79472"
      inkscape:window-width="3840"
      inkscape:window-height="1131"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg4" />
+     inkscape:current-layer="svg4"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#505050" />
   <defs
      id="defs8" />
-  <text
-     xml:space="preserve"
-     style="font-size:1.94466px;line-height:1.25;font-family:ChunkFive;-inkscape-font-specification:ChunkFive;letter-spacing:0px;word-spacing:0px;fill:#000000;stroke-width:0.0303853"
-     x="1.7781451"
-     y="2.2358034"
-     id="text10208"><tspan
-       style="fill:#000000;stroke-width:0.0303853"
-       x="1.7781451"
-       y="2.2358034"
-       id="tspan15902">LAZY </tspan></text>
+  <g
+     aria-label="LAZY "
+     id="text10208"
+     style="font-size:1.94466px;line-height:1.25;font-family:ChunkFive;-inkscape-font-specification:ChunkFive;letter-spacing:0px;word-spacing:0px;stroke-width:0.0303853">
+    <path
+       d="M 1.8267616,1.1331812 H 1.9337179 V 1.9771636 H 1.8267616 V 2.2358034 H 2.9157711 V 1.7301918 H 2.5890683 V 1.9771636 H 2.3382071 V 1.1331812 h 0.103067 V 0.87648606 H 1.8267616 Z"
+       id="path1715" />
+    <path
+       d="M 4.5356741,1.9810529 H 4.3995479 L 4.0553431,0.87648606 H 3.3085937 V 1.1273472 h 0.079731 L 3.1257956,1.9810529 H 2.9935587 V 2.2358034 H 3.6119606 V 1.9810529 H 3.4602771 L 3.501115,1.848816 h 0.3986553 l 0.040838,0.1322369 H 3.7558654 V 2.2358034 H 4.5356741 Z M 3.6994703,1.1954103 3.8278179,1.6154568 H 3.5730674 Z"
+       id="path1717" />
+    <path
+       d="M 4.9557205,1.3879316 4.9537759,1.1351258 5.3213166,1.1331812 4.6134604,1.9829976 V 2.2358034 H 5.8988806 V 1.7301918 H 5.5546758 l -0.00194,0.2489165 H 5.1929691 L 5.9047146,1.1351258 5.9008253,0.87648606 H 4.6251284 V 1.3879316 Z"
+       id="path1719" />
+    <path
+       d="M 6.6709117,1.4890539 C 6.6631331,1.4559947 6.6222952,1.368485 6.6106272,1.3315365 L 6.497837,1.1254025 H 6.5989593 V 0.87648606 H 5.9338856 V 1.1254025 h 0.095288 L 6.406438,1.7535277 V 1.9829976 H 6.2955923 V 2.2358034 H 6.9178835 V 1.9829976 H 6.8089826 V 1.757417 L 7.1687447,1.1254025 H 7.2737563 V 0.87648606 H 6.7506428 V 1.1254025 H 6.8575991 L 6.7506428,1.3218132 C 6.7292515,1.368485 6.686469,1.4501607 6.6786903,1.4890539 Z"
+       id="path1721" />
+  </g>
   <text
      xml:space="preserve"
      style="font-size:1.6px;line-height:1.25;font-family:Chunk;-inkscape-font-specification:Chunk;letter-spacing:0px;word-spacing:0px;stroke-width:0.025"
@@ -74,16 +83,20 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:ChunkFive;-inkscape-font-specification:ChunkFive;stroke-width:0.025"
        x="17.284468"
        y="1.4811244" /></text>
-  <text
-     xml:space="preserve"
-     style="font-size:2.04425px;line-height:1.25;font-family:ChunkFive;-inkscape-font-specification:ChunkFive;letter-spacing:0px;word-spacing:0px;fill:#000000;stroke-width:0.0319414"
-     x="2.9744921"
-     y="3.8614583"
-     id="text25134"><tspan
-       id="tspan25132"
-       style="fill:#000000;stroke-width:0.0319414"
-       x="2.9744921"
-       y="3.8614583">LAB</tspan></text>
+  <g
+     aria-label="LAB"
+     id="text25134"
+     style="font-size:2.04425px;line-height:1.25;font-family:ChunkFive;-inkscape-font-specification:ChunkFive;letter-spacing:0px;word-spacing:0px;stroke-width:0.0319414">
+    <path
+       d="M 3.0255983,2.7023685 H 3.1380321 V 3.5895731 H 3.0255983 v 0.2718852 h 1.14478 V 3.3299533 H 3.8269443 V 3.5895731 H 3.5632361 V 2.7023685 h 0.1083452 v -0.269841 h -0.645983 z"
+       id="path1708" />
+    <path
+       d="M 5.8732399,3.5936616 H 5.7301424 L 5.3683101,2.4325275 h -0.784992 v 0.2637083 h 0.083814 L 4.3911586,3.5936616 H 4.2521496 V 3.8614583 H 4.9022211 V 3.5936616 H 4.7427696 l 0.042929,-0.1390091 h 0.4190712 l 0.042929,0.1390091 H 5.0534956 V 3.8614583 H 5.8732399 Z M 4.9942124,2.7677845 5.1291329,3.2093425 H 4.8613361 Z"
+       id="path1710" />
+    <path
+       d="m 6.7318247,3.8614583 c 0.3945403,0 0.556036,-0.1267435 0.556036,-0.4149828 0,-0.1982922 -0.122655,-0.3066375 -0.269841,-0.3475225 0.1533188,-0.061327 0.2003365,-0.1451417 0.2003365,-0.3168587 0,-0.2228233 -0.1614957,-0.3495668 -0.5008412,-0.3495668 H 5.9550097 v 0.2637083 h 0.1185665 v 0.89947 H 5.9550097 V 3.8614583 Z M 6.6255237,2.7023685 c 0.077682,0 0.1349205,0.055195 0.1349205,0.1492303 0,0.098124 -0.030664,0.1574072 -0.139009,0.1574072 H 6.496736 V 2.7023685 Z M 6.496736,3.5957058 V 3.2400063 h 0.1574072 c 0.1124338,0 0.171717,0.075637 0.171717,0.179894 0,0.1103895 -0.079726,0.1758055 -0.1655842,0.1758055 z"
+       id="path1712" />
+  </g>
   <g
      id="g55419"
      transform="translate(2.3764041,-0.51151004)">
