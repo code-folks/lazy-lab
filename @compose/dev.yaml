@@ -15,6 +15,12 @@ services:
   core:
     volumes:
       - ./services/core-api/app:/runtime/app
+      - type: bind
+        source: ./services/core-api/poetry.lock
+        target: /runtime/poetry.lock
+      - type: bind
+        source: ./services/core-api/pyproject.toml
+        target: /runtime/pyproject.toml
     ports:
       - "8000:8000"
     build:

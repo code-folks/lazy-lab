@@ -36,4 +36,3 @@ USER root:root
 # Dev env has the automigration included
 ENV AUTOMIGRATE=True
 RUN poetry install --no-interaction --no-ansi --no-root --only dev
-USER runtime_user:runtime_user
