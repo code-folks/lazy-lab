@@ -1,0 +1,58 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@2.1.1
+
+executors:
+  backend_executor:
+    docker:
+      - image: cimg/python:3.10.2
+
+jobs:
+  build-backend:
+    executor: backend_executor
+    working_directory: ~/project/services/core-api/app
+    steps:
+      - setup_remote_docker
+      - checkout:
+          path: ~/project
+      - run:
+          name: Install missing packages
+          # poetry in cimg/python:3.10.2 is not compatible with poetry.lock (req. poetry > 1.2)
+          # black and flake8 are missing in pyproject.toml ?
+          command: |
+            pip install poetry==1.4
+            pip install black
+            pip install flake8
+      - python/install-packages:
+          pkg-manager: poetry
+      - run:
+          name: Run migration check
+          command: |
+            poetry run python manage.py makemigrations --dry-run --check
+            exit $?
+      - run:
+          name: Run mypy
+          command: |
+            poetry run mypy .
+      - run:
+          name: Run black
+          command: |
+            poetry run black . --check
+      - run:
+          name: Run flake8
+          command: |
+            poetry run flake8 .
+      - run:
+          name: Run isort
+          command: |
+            poetry run isort --check-only .
+      - run:
+          name: Collect static files
+          command: |
+            poetry run python manage.py collectstatic --noinput
+
+workflows:
+  build-test-deploy:
+    jobs:
+      - build-backend
