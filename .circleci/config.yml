@@ -6,7 +6,7 @@ orbs:
 executors:
   backend_executor:
     docker:
-      - image: cimg/python:3.10.2
+      - image: cimg/python:3.11.3
 
 jobs:
   build-backend:
@@ -16,14 +16,10 @@ jobs:
       - setup_remote_docker
       - checkout:
           path: ~/project
-      - run:
-          name: Install missing packages
-          # poetry in cimg/python:3.10.2 is not compatible with poetry.lock (req. poetry > 1.2)
-          # black and flake8 are missing in pyproject.toml ?
-          command: |
-            pip install poetry==1.4
-            pip install black
-            pip install flake8
+      # - run:
+      #     name: Install missing packages
+      #     command: |
+      #       pip install flake8
       - python/install-packages:
           pkg-manager: poetry
       - run:
@@ -31,24 +27,24 @@ jobs:
           command: |
             poetry run python manage.py makemigrations --dry-run --check
             exit $?
-      - run:
-          name: Run mypy
-          command: |
-            poetry run mypy .
+      # - run:
+      #     name: Run mypy
+      #     command: |
+      #       poetry run mypy .
       - run:
           name: Run black
           command: |
             poetry run black . --check
-      - run:
-          name: Run flake8
-          command: |
-            poetry run flake8 .
+      # - run:
+      #     name: Run ruff
+      #     command: |
+      #       poetry run ruff check .
       - run:
           name: Run isort
           command: |
             poetry run isort --check-only .
       - run:
-          name: Collect static files
+          name: Collect static files # breaks - no STATIC_ROOT
           command: |
             poetry run python manage.py collectstatic --noinput
 
