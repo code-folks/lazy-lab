@@ -16,10 +16,6 @@ jobs:
       - setup_remote_docker
       - checkout:
           path: ~/project
-      # - run:
-      #     name: Install missing packages
-      #     command: |
-      #       pip install flake8
       - python/install-packages:
           pkg-manager: poetry
       - run:
@@ -35,18 +31,18 @@ jobs:
           name: Run black
           command: |
             poetry run black . --check
-      # - run:
-      #     name: Run ruff
-      #     command: |
-      #       poetry run ruff check .
+      - run:
+          name: Run ruff
+          command: |
+            poetry run ruff check .
       - run:
           name: Run isort
           command: |
             poetry run isort --check-only .
-      - run:
-          name: Collect static files # breaks - no STATIC_ROOT
-          command: |
-            poetry run python manage.py collectstatic --noinput
+      # - run:
+      #     name: Collect static files # no STATIC_ROOT for now
+      #     command: |
+      #       poetry run python manage.py collectstatic --noinput
 
 workflows:
   build-test-deploy:
