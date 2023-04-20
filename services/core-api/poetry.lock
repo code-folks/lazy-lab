@@ -294,7 +294,7 @@ sqlparse = ">=0.2"
 name = "django-environ"
 version = "0.10.0"
 description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5,<4"
 files = [
@@ -1533,4 +1533,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "9e0b42e57d11c7219bb6810fa99b0b0bab2fc9c1442cb6a598c76c000d56c323"
+content-hash = "c06768c7f528f55db4e5653dfddf5633fa5ce90bde2489dd0780b2d27cdf25cd"
