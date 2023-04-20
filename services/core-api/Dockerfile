@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG PYTHON_VERSION=3.10
-FROM python:$PYTHON_VERSION-buster as dependencies
+ARG PYTHON_VERSION=3.11.3
+FROM python:$PYTHON_VERSION-slim-buster as dependencies
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
