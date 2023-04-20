@@ -2,10 +2,11 @@
 Base settings to build other settings files upon.
 """
 
+from pathlib import Path
+
 import environ
 
-# BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-BASE_DIR = environ.Path(__file__) - 3
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 APPS_DIR = BASE_DIR / "modules"
 
 env = environ.Env(smart_cast=True)
@@ -53,7 +54,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "users:redirect"
