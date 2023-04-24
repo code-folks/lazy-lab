@@ -73,7 +73,17 @@
 </template>
   
 <script lang="ts" setup>
-import { LockClosedIcon } from '@heroicons/vue/20/solid'
+import { PropType } from 'vue';
+import { LockClosedIcon } from '@heroicons/vue/20/solid';
+import { AuthAction } from './types';
+
+const props = defineProps({
+  action: {
+    type: String as PropType<AuthAction>,
+  }
+});
+
+
 </script>
 
 <style lang="scss">
