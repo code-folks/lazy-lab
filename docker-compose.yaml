@@ -6,12 +6,18 @@ volumes:
   pip-cache:
 
 x-common:
-    &common
-    restart: on-failure
-    logging:
-      options:
-        max-size: "5k"
-        max-file: "2"
+  &common
+  restart: on-failure
+  logging:
+    options:
+      max-size: "5k"
+      max-file: "2"
+
+x-db-ready:
+  &db-ready
+  db:
+    condition: service_healthy
+    restart: true
 # ==================================
 services:
 # ----------------------------------
@@ -20,6 +26,12 @@ services:
     profiles:
       - essential
       - sdk
+    healthcheck:
+      test: ["CMD", "pg_isready", "||", "exit", "1"]
+      interval: 5m30s
+      timeout: 30s
+      retries: 1
+      start_period: 10s
     <<: *common
 # ----------------------------------
   core:
@@ -32,7 +44,7 @@ services:
       - essential
       - sdk
     depends_on:
-      - db
+      <<: *db-ready
     <<: *common
 # ----------------------------------
   ui:
@@ -44,22 +56,13 @@ services:
       - sdk
     restart: on-failure
     <<: *common
-  # mailhog:
-  #   image: mailhog/mailhog
-  #   ports:
-  #     - "8085:8025"
-  #   logging:
-  #     driver: none
-
-  # nginx:
-  #   image: nginx:alpine
-  #   ports:
-  #     - "8000:80"
-  #   depends_on:
-  #     - db
-  #     - core
-  #     - ui
-  #   volumes:
-  #     - ./services/ui/ten-school/public:/www/public
-  #     - ./services/core-api/app/static:/www/public/static
-  #     - ./services/nginx/dev.conf:/etc/nginx/nginx.conf:ro
+# ----------------------------------
+  gateway:
+    image: nginx:alpine
+    depends_on:
+      - core
+      - ui
+    profiles:
+      - essential
+      - sdk
+    <<: *common

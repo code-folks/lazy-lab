@@ -17,5 +17,6 @@ RUN yarn install --non-interactive --pure-lockfile
 FROM dependencies as base
 
 COPY --chown=runtime_user:runtime_user $PROJECT_DIR $APP_ROOT
+ONBUILD RUN yarn build:docker
 
-CMD ["yarn", "serve"]
+CMD ["yarn", "run", "dev", "--host", "0.0.0.0", "--port", "9000"]
