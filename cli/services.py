@@ -4,6 +4,9 @@ import typing as t
 
 from pathlib import Path
 
+from python_on_whales import DockerClient
+from python_on_whales.components.compose.cli_wrapper import ComposeCLI
+
 from .utils import index
 
 CONFIG_FILES_LOADERS = {
@@ -30,8 +33,8 @@ def find_config_file(lookup_dir: Path, lookup_names: t.Iterable[str], max_depth=
     return result
 
 
-class Service:
-    """ Abstraction to store info about available services inside project structure
+class ServiceSource:
+    """ Abstraction to store info about service source in project structure
 
     :param name: service short name.
     :param root_dir: path to the directory with the service config file.
@@ -98,15 +101,21 @@ class Service:
     __str__ = __repr__
 
 
-HAS_DOCKERFILE: t.Callable[[Path], bool] = lambda d: d.joinpath("Dockerfile").exists()
+
+class Composable:
+
+    def __init__(self, compose_cli: ComposeCLI) -> None:
+        pass
 
 
-def discover_services(root_dir: Path, service_check: t.Callable[[Path], bool]=HAS_DOCKERFILE) -> t.List[Service]:
-    services = []
-    for entry in root_dir.iterdir():
-        if not entry.is_dir() or not service_check(entry):
-            continue
-        services.append(
-            Service(name=entry.name, root_dir=entry)
-        )
-    return services
+_DOCKER_CLIENT = DockerClient()
+
+# def discover_services(root_dir: Path, service_check: t.Callable[[Path], bool]=HAS_DOCKERFILE) -> t.List[ServiceSource]:
+#     services = []
+#     for entry in root_dir.iterdir():
+#         if not entry.is_dir() or not service_check(entry):
+#             continue
+#         services.append(
+#             ServiceSource(name=entry.name, root_dir=entry)
+#         )
+#     return services
