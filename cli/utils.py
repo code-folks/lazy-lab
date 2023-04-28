@@ -7,7 +7,7 @@ def index(d:dict, parent_key:str='', sep:str='.', transform=str.lower) -> dict:
     structure will be reflected in their key.
     
     >>> example = {'a': 1, 'c': {'a': 2, 'b': {'x': 5}, 'd': [1, 2, 3]}
-    >>> flatten(example)
+    >>> index(example)
     >>> {'a': 1, 'c.a': 2, 'c.b': {'x': 5} ,'c.b.x': 5, 'd': [1, 2, 3]}
     """
     if not isinstance(d, dict):
