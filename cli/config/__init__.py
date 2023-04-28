@@ -1,8 +1,10 @@
 import contextvars
 import pathlib
 import typing as t
-import rich
 
+from contextlib import contextmanager
+
+import rich
 import typer
 import pydantic
 
@@ -12,13 +14,25 @@ config_cli = typer.Typer(name="config", no_args_is_help=True)
 Config: contextvars.ContextVar[ConfigFile] =  contextvars.ContextVar("Config")
 
 
+@contextmanager
+def errorles_config(error_emoji:str=":no_entry:", succes_emoji: t.Optional[str] = None):
+    cfg = Config.get()
+    try:
+        yield cfg
+        if not succes_emoji:
+            return
+        rich.print(succes_emoji)
+    except ConfigFileError as err:
+        rich.print(f"{error_emoji} {err}")
+
+
 @config_cli.command("show")
 def show():
     """ Show full config as JSON."""
-    cfg = Config.get()
-    rich.print_json(
-        data=cfg.preview_full()
-    )
+    with errorles_config() as cfg:
+        rich.print_json(
+            data=cfg.preview_full()
+        )
 
 @config_cli.command("get")
 def get(property:str):
@@ -26,10 +40,10 @@ def get(property:str):
     
     Example: config get versioning_strategy
     """
-    cfg = Config.get()
-    rich.print_json(
-        data={property: cfg.get(property)}
-    )
+    with errorles_config() as cfg:
+        rich.print_json(
+            data={property: cfg.get(property)}
+        )
 
 @config_cli.command("set")
 def set(property:str, value: str):
@@ -40,8 +54,8 @@ def set(property:str, value: str):
 
     Example: config set dev.profile my-profile 
     """
-    cfg = Config.get()
-    cfg.set(property, value=value)
+    with errorles_config(succes_emoji=":thumbsup:") as cfg:
+        cfg.set(property, value=value)
 
 
 @config_cli.command("clear")
@@ -50,8 +64,8 @@ def clear(property:str):
     
     Example: config clear run.silent
     """
-    cfg = Config.get()
-    cfg.restore_key(property)
+    with errorles_config(succes_emoji=":thumbsup:") as cfg:
+        cfg.restore_key(property)
 
 @config_cli.command("set:append")
 def append(property:str, value: str):
@@ -61,8 +75,8 @@ def append(property:str, value: str):
     
     Example: config append dev.docker_files additional_docker_file.yaml
     """
-    cfg = Config.get()
-    cfg.append(property, value=value)
+    with errorles_config(succes_emoji=":thumbsup:") as cfg:
+        cfg.append(property, value=value)
 
 
 @config_cli.command("set:remove")
@@ -73,14 +87,14 @@ def remove(property:str, value: str):
     
     Example: config remove dev.docker_files bad_file.yaml
     """
-    cfg = Config.get()
-    cfg.remove(property, value=value)
+    with errorles_config(succes_emoji=":thumbsup:") as cfg:
+        cfg.remove(property, value=value)
 
 @config_cli.command("locate")
 def locate():
     """ Open directory wth config file with system file browser."""
-    cfg = Config.get()
-    typer.launch(cfg.file, locate=True)
+    with errorles_config(succes_emoji=":thumbsup:") as cfg:
+        typer.launch(cfg.file.as_uri(), locate=True)
 
 
 def get_config_cli(config: pathlib.Path, schema: t.Type[pydantic.BaseModel]) -> typer.Typer:

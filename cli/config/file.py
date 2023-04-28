@@ -2,12 +2,18 @@ import pydantic
 import pathlib
 import typing as t
 
+from pydantic import tools, fields
+
+
 from operator import attrgetter
 
 S = t.TypeVar('S', bound=pydantic.BaseModel)
 
 
 class ConfigFileError(Exception):
+    pass
+
+class ConfigValueError(ConfigFileError):
     pass
 
 
@@ -49,27 +55,43 @@ class ConfigFile(t.Generic[S]):
         if self.file.exists() and not force:
             return
         if not self.file.exists():
-            self.file.parent.mkdir(parents=True,exist_ok=True)
-            self.file.touch()
+            self._config_object = self.default_config
+            return
         self.file.write_text(self.default_config.json())
 
     def _save(self) -> None:
         cfg = self.config_object.json()
+        if not self.file.exists():
+            self.file.parent.mkdir(parents=True,exist_ok=True)
+            self.file.touch()
         self.file.write_text(cfg)
 
     def _reload(self):
         self._config_object = self.raw_object
 
+    def _set_with_cast(self, target: pydantic.BaseModel, attr:str, value:t.Any) -> t.Any:
+        if not isinstance(target, pydantic.BaseModel):
+            raise RuntimeError("The config model is corrupted")
+        model_fields: t.Dict[str, fields.ModelField] = getattr(target, "__fields__")
+        field_definition: fields.ModelField = model_fields[attr]
+        try:
+            setattr(target, attr, tools.parse_obj_as(field_definition.type_, value))
+        except pydantic.ValidationError as e:
+            error = e.errors().pop()
+            raise ConfigValueError(f"Cannot assign `{value}` {error['msg']}")
+
     def set(self, key:str, value:t.Any, autosave: bool=True) -> None:
         nested_config, _, attr = key.rpartition(".")        
         target = self.config_object
-        if nested_config:
-            try:
-                nested_getter = attrgetter(nested_config)
-            except AttributeError:
-                raise ConfigFileError(f"There is no `{key}` config property.")
-            target = nested_getter(target)
-        setattr(target, attr, value)
+        nested_getter = attrgetter(nested_config)
+        try:
+            if nested_config:
+                target = nested_getter(target)
+            if isinstance(getattr(target, attr), pydantic.BaseModel):
+                raise ConfigFileError("Cannot configure that.")
+            self._set_with_cast(target, attr, value)
+        except (AttributeError, KeyError):
+            raise ConfigFileError(f"There is no `{key}` config property.")
         if autosave:
             self._save()
 
@@ -93,12 +115,16 @@ class ConfigFile(t.Generic[S]):
     def get(self, key:str) -> t.Any:
         value_getter = attrgetter(key)
         try:
-            return value_getter(self.config_object)
+            val = value_getter(self.config_object)
+            if isinstance(val, pydantic.BaseModel):
+                val = val.dict()
+            return val
         except AttributeError:
             raise ConfigFileError(f"There is no `{key}` config property.")
 
     def restore(self) -> None:
-        self._create(force=True)
+        self._config_object = self.default_config
+        self._save()
 
     def restore_key(self, key:str) -> None:
         value_getter = attrgetter(key)
