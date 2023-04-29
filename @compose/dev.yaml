@@ -9,10 +9,11 @@ x-dev: &shared-dev
       - dev
 
 services:
+# -------------------------------------------------
   db:
     volumes:
       - lazy-lab-db-cache:/var/lib/postgresql/data
-      - ./dev_data/db_init:/docker-entrypoint-initdb.d
+      - ./@compose/dev_data/db_init:/docker-entrypoint-initdb.d
     <<: *shared-dev
 # -------------------------------------------------
   core:
@@ -45,5 +46,12 @@ services:
     volumes:
       - ./services/ui/lazy-lab/public:/www/public
       - ./services/core-api/app/static:/www/public/static
-      - ./services/gateway/configs/dev.conf:/etc/nginx/nginx.conf:ro
+      - ./@compose/dev_data/gateway/dev.conf:/etc/nginx/nginx.conf:ro
+    <<: *shared-dev
+# -------------------------------------------------
+  api-mock:
+    image: mockoon/cli:3.0.0
+    command: ["--data", "api-definition.json", "--port", "3000"]
+    volumes:
+      - ./@compose/dev_data/mockoon/lazy-lab.mockoon.json:/api-definition.json:ro
     <<: *shared-dev

@@ -75,7 +75,7 @@ class ConfigFile(t.Generic[S]):
         model_fields: t.Dict[str, fields.ModelField] = getattr(target, "__fields__")
         field_definition: fields.ModelField = model_fields[attr]
         try:
-            setattr(target, attr, tools.parse_obj_as(field_definition.type_, value))
+            setattr(target, attr, tools.parse_obj_as(field_definition.outer_type_, value))
         except pydantic.ValidationError as e:
             error = e.errors().pop()
             raise ConfigValueError(f"Cannot assign `{value}` {error['msg']}")

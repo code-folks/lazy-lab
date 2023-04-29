@@ -11,7 +11,7 @@ class ComposeConfig(BaseModel):
 class DevCommandConfig(BaseModel):
     deamon: bool = True
     docker_extra: ComposeConfig = fields.Field(
-        default=ComposeConfig(compose_files=["@compose/dev.yaml",], profiles=[])
+        default=ComposeConfig(compose_files=["@compose/dev.yaml",], profiles=["dev",])
     )
 
 class ConfigSchema(BaseModel):
