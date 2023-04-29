@@ -1,4 +1,6 @@
 import typing
+from functools import singledispatch
+
 
 def index(d:dict, parent_key:str='', sep:str='.', transform=str.lower) -> dict:
     """ Indexes the dict so it will be only one level deep.
@@ -20,3 +22,33 @@ def index(d:dict, parent_key:str='', sep:str='.', transform=str.lower) -> dict:
             items.extend(index(v, new_key, sep=sep).items())
         items.append((new_key, v))
     return dict(items)
+
+
+@singledispatch
+def merge(x:dict, y:dict):
+    x_keys, y_keys = x.keys(), y.keys()
+    result = { k: merge(x[k], y[k]) for k in x_keys & y_keys }
+    result.update({k: x[k] for k in x_keys - y_keys})
+    result.update({k: y[k] for k in y_keys - x_keys})
+    return result
+
+@merge.register
+def m(x:str, y:str):
+    return x + y
+
+@merge.register
+def m(x: tuple, y:tuple):
+    return x + y
+
+@merge.register
+def m(x: list, y:list):
+    combined = set(x + y)
+    return list(combined)
+
+@merge.register
+def m(x: int, y: int):
+    raise ValueError("integer value conflict")
+
+@merge.register
+def m(x: bool, y: bool):
+    return x or y

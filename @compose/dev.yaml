@@ -39,11 +39,11 @@ services:
     command: yarn run dev --host 0.0.0.0 --port 9000
     <<: *shared-dev
 # -------------------------------------------------
-  gateway:
-    ports:
-      - "8080:80"
-    volumes:
-      - ./services/ui/lazy-lab/public:/www/public
-      - ./services/core-api/app/static:/www/public/static
-      - ./services/nginx/dev.conf:/etc/nginx/nginx.conf:ro
-    <<: *shared-dev
+  # gateway:
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - ./services/ui/lazy-lab/public:/www/public
+  #     - ./services/core-api/app/static:/www/public/static
+  #     - ./services/nginx/dev.conf:/etc/nginx/nginx.conf:ro
+  #   <<: *shared-dev
