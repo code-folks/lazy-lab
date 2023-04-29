@@ -5,7 +5,6 @@ import inspect
 import typing as t
 from contextlib import contextmanager
 from pathlib import Path
-from functools import wraps
 
 import typer
 import rich
@@ -178,9 +177,46 @@ class ComposableService:
     def shell(self):
         """ Runs command inside service container 
 
-        EQUIVALENT OF => `docker compose run *service-name* bash`."""
+        EQUIVALENT OF => `docker compose exec *service-name* bash`."""
         with clear_compose():
-            self.compose.run(self.name, command=["bash"])
+            self.compose.execute(self.name, command=["bash"])
+
+    @expose_to_cli
+    def up(self, force_recreate:bool=False, detach:bool=True):
+        """ Starts the service container 
+
+        EQUIVALENT OF => `docker compose up *service-name*`."""
+        with clear_compose():
+            self.compose.up(self.compose_id, force_recreate=force_recreate, detach=detach)
+
+    @expose_to_cli
+    def logs(self, timestamps:bool=False, follow:bool=False, tail:str = "all", short_prefix:bool=True):
+        """ Stops the service container 
+
+        EQUIVALENT OF => `docker compose logs *service-name*`."""
+        template = "{prefix} | {data}" if short_prefix else "{data}"
+        with clear_compose():
+            logs_stream = self.compose.logs(
+                self.compose_id, timestamps=timestamps, follow=follow, tail=tail, no_log_prefix=short_prefix, stream=True
+            )
+            for source, data in logs_stream:
+                rich.print(template.format(data=data.decode('utf-8'), prefix=f"{self.name}"), end="")
+
+    @expose_to_cli
+    def down(self):
+        """ Stops the service container 
+
+        EQUIVALENT OF => `docker compose stop *service-name*`."""
+        with clear_compose():
+            self.compose.stop(self.compose_id)
+
+    @expose_to_cli
+    def kill(self):
+        """ Kills the service container 
+
+        EQUIVALENT OF => `docker compose kill *service-name*`."""
+        with clear_compose():
+            self.compose.kill(self.compose_id)
 
 
     def _get_exposed_methods(self) -> t.Iterable[t.Callable]:

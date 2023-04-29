@@ -39,10 +39,10 @@ def get_versions() -> t.Dict[str, str]:
     return versions
 
 
-@services_cli.command("versions")
+@services_cli.command("all:versions")
 def versions():
     """
-    [:mag:] Displays current Services **versions**
+    [:mag:] Displays local services versions
     """
     rich.print_json(data=get_versions())
 
