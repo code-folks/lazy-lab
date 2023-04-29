@@ -67,6 +67,18 @@ def clear(property:str):
     with errorles_config(succes_emoji=":thumbsup:") as cfg:
         cfg.restore_key(property)
 
+
+@config_cli.command("clear:all")
+def clear():
+    """ Clears the selected property restoring original value.
+    
+    Example: config clear run.silent
+    """
+    with errorles_config(succes_emoji=":thumbsup:") as cfg:
+        typer.confirm("Are you sure? This will 💥 whole config❗:", abort=True)
+        cfg.restore()
+
+
 @config_cli.command("set:append")
 def append(property:str, value: str):
     """ Special set for `type:list` appends value to selected config.
@@ -97,6 +109,8 @@ def locate():
         typer.launch(cfg.file.as_uri(), locate=True)
 
 
-def get_config_cli(config: pathlib.Path, schema: t.Type[pydantic.BaseModel]) -> typer.Typer:
+C = t.TypeVar("C", bound=pydantic.BaseModel)
+
+def bootstrap_config(config: pathlib.Path, schema: t.Type[C]) -> t.Tuple[typer.Typer, ConfigFile[C]]:
     Config.set(ConfigFile(file=config, schema=schema))
-    return config_cli
+    return config_cli, Config.get()

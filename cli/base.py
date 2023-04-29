@@ -3,7 +3,8 @@ import pathlib
 import typer
 
 # from .services import discover_services
-from .config import get_config_cli
+from .config import bootstrap_config
+from .services import get_services_cli
 from .config_schema import ConfigSchema
 
 PROJECT_PACKAGE_NAME="lazy-lab"
@@ -20,7 +21,8 @@ CLI_CONFIG_DIR = typer.get_app_dir(PROJECT_PACKAGE_NAME)
 CLI_CONFIG_FILE: pathlib.Path = pathlib.Path(CLI_CONFIG_DIR) / "config.json"
 
 
-config_cli = get_config_cli(CLI_CONFIG_FILE, ConfigSchema)
-
+config_cli, config_file = bootstrap_config(CLI_CONFIG_FILE, ConfigSchema)
+services_cli = get_services_cli(config_file.config_object)
 
 CLI.add_typer(config_cli)
+CLI.add_typer(services_cli)

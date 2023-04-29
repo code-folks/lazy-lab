@@ -13,11 +13,6 @@ x-common:
       max-size: "5k"
       max-file: "2"
 
-x-db-ready:
-  &db-ready
-  db:
-    condition: service_healthy
-    restart: true
 # ==================================
 services:
 # ----------------------------------
@@ -26,12 +21,6 @@ services:
     profiles:
       - essential
       - sdk
-    healthcheck:
-      test: ["CMD", "pg_isready", "||", "exit", "1"]
-      interval: 5m30s
-      timeout: 30s
-      retries: 1
-      start_period: 10s
     <<: *common
 # ----------------------------------
   core:
@@ -44,7 +33,7 @@ services:
       - essential
       - sdk
     depends_on:
-      <<: *db-ready
+      - db
     <<: *common
 # ----------------------------------
   ui:
