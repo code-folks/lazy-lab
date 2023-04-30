@@ -13,6 +13,7 @@ from .docker import  get_docker_client, merge_compose_configs
 dev_cli = typer.Typer(name="dev", no_args_is_help=True)
 DEV_CFG: ContextVar[ConfigSchema] = ContextVar("CFG", default=None)
 GATEWAY_LINK = "http://localhost:8080/auth/login"
+MOCK_GATEWAY_LINK = "http://mock.localhost:8080/auth/login"
 
 @contextmanager
 def dev_client():
@@ -30,13 +31,15 @@ def dev_client():
 @dev_cli.command("start")
 def run(d: bool = True, all: bool = False, build: bool=False, browser:bool=True):
     """ Starts the development envirnoment using the configured deveopment files. """
+    dev_cfg = DEV_CFG.get().dev
     with dev_client() as docker_client:
         console = rich.console.Console(soft_wrap=True)
         with console.status("[plum1] Starting [plum2]development [plum3]envirnoment[plum4]... :rocket:", spinner="moon"):
             docker_client.compose.up(detach=d, abort_on_container_exit=all, wait=d, build=build, quiet=True)
     console.print("[cyan3] :spouting_whale: Project started...")
+    link_to_open = MOCK_GATEWAY_LINK if dev_cfg.use_mock else GATEWAY_LINK
     if browser:
-        typer.launch(GATEWAY_LINK)
+        typer.launch(link_to_open)
 
 
 @dev_cli.command("stop")

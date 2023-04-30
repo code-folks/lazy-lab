@@ -178,8 +178,17 @@ class ComposableService:
         """ Runs command inside service container 
 
         EQUIVALENT OF => `docker compose exec *service-name* bash`."""
+        try_commands = ["bash", "sh"]
         with clear_compose():
-            self.compose.execute(self.name, command=["bash"])
+            last_exception = None
+            for command in try_commands:
+                try:
+                    self.compose.execute(self.name, command=[command])
+                except DockerException as err:
+                    last_exception = err
+                    continue
+            if last_exception is not None:
+                raise last_exception
 
     @expose_to_cli
     def up(self, force_recreate:bool=False, detach:bool=True):

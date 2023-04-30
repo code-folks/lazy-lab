@@ -13,6 +13,7 @@ class DevCommandConfig(BaseModel):
     docker_extra: ComposeConfig = fields.Field(
         default=ComposeConfig(compose_files=["@compose/dev.yaml",], profiles=["dev",])
     )
+    use_mock: bool = True
 
 class ConfigSchema(BaseModel):
     dev: DevCommandConfig = fields.Field(default_factory=DevCommandConfig)

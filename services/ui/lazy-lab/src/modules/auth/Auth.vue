@@ -75,14 +75,17 @@
 <script lang="ts" setup>
 import { PropType } from 'vue';
 import { LockClosedIcon } from '@heroicons/vue/20/solid';
+
 import { AuthAction } from './types';
+import { useDev } from '../../composables';
 
 const props = defineProps({
   action: {
     type: String as PropType<AuthAction>,
   }
 });
-
+const { isDev } = useDev() ;
+console.log(isDev.value);
 
 </script>
 
