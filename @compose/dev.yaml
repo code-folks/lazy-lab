@@ -51,7 +51,7 @@ services:
 # -------------------------------------------------
   api-mock:
     image: mockoon/cli:3.0.0
-    command: ["--data", "api-definition.json", "--port", "3000"]
+    command: ["--data", "/runtime_data/lazy-lab.mockoon.json", "--port", "3000"]
     volumes:
-      - ./@compose/dev_data/mockoon/lazy-lab.mockoon.json:/api-definition.json:ro
+      - ./@compose/dev_data/mockoon:/runtime_data
     <<: *shared-dev

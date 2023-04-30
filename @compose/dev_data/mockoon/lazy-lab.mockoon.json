@@ -1,31 +1,63 @@
 {
   "uuid": "26365e8b-8f0b-4044-a6a8-7ef7215739c8",
   "lastMigration": 27,
-  "name": "Lazy lab.mockoon",
-  "endpointPrefix": "",
+  "name": "Lazy Lab MOCK Server",
+  "endpointPrefix": "mock",
   "latency": 0,
-  "port": 3001,
+  "port": 8080,
   "hostname": "",
-  "folders": [],
+  "folders": [
+    {
+      "uuid": "a7ecbcd9-f62a-4522-8175-7f074358cafe",
+      "name": "Auth",
+      "collapsed": false,
+      "children": [
+        {
+          "type": "route",
+          "uuid": "e51225a9-814e-4556-98e1-94cf20d2c5c5"
+        }
+      ]
+    },
+    {
+      "uuid": "4410021f-a118-43a2-89b6-3a7c3329bbba",
+      "name": "Swagger",
+      "collapsed": false,
+      "children": [
+        {
+          "type": "route",
+          "uuid": "270f5ee9-d7bd-4523-8c63-a8cb499f4199"
+        },
+        {
+          "type": "route",
+          "uuid": "80aba387-2852-42f1-871a-807447fe481e"
+        }
+      ]
+    }
+  ],
   "routes": [
     {
       "uuid": "570c2db4-7bcc-46d6-89b5-0da65065b7a4",
       "type": "http",
-      "documentation": "",
+      "documentation": "Main page as document",
       "method": "get",
-      "endpoint": "",
+      "endpoint": "index.html",
       "responses": [
         {
           "uuid": "3d7b8d5e-7b29-4a9e-a5dc-2c90dd9c3a0e",
-          "body": "{}",
+          "body": "<!doctype html>\n    <html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n      <head>\n        <title>\n        Mock Server Home | LazyLab  \n        </title>\n        <!--[if !mso]><!-- -->\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n        <!--<![endif]-->\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n        <style type=\"text/css\">\n          #outlook a { padding:0; }\n          body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }\n          table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }\n          img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }\n          p { display:block;margin:13px 0; }\n        </style>\n        <link rel=\"icon\" type=\"image/svg+xml\" href=\"/favicon-4.svg\">\n        \n        <!--[if mso]>\n        <xml>\n        <o:OfficeDocumentSettings>\n          <o:AllowPNG/>\n          <o:PixelsPerInch>96</o:PixelsPerInch>\n        </o:OfficeDocumentSettings>\n        </xml>\n        <![endif]-->\n        <!--[if lte mso 11]>\n        <style type=\"text/css\">\n          .outlook-group-fix { width:100% !important; }\n        </style>\n        <![endif]-->\n        \n      <!--[if !mso]><!-->\n        <link href=\"https://fonts.googleapis.com/css?family=Lato:400,700\" rel=\"stylesheet\" type=\"text/css\">\n<link href=\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\" rel=\"stylesheet\" type=\"text/css\">\n<link href=\"https://fonts.googleapis.com/css?family=Cabin:400,700\" rel=\"stylesheet\" type=\"text/css\">\n<link href=\"https://fonts.googleapis.com/css?family=Poppins:400,700\" rel=\"stylesheet\" type=\"text/css\">\n        <style type=\"text/css\">\n          @import url(https://fonts.googleapis.com/css?family=Lato:400,700);\n@import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);\n@import url(https://fonts.googleapis.com/css?family=Cabin:400,700);\n@import url(https://fonts.googleapis.com/css?family=Poppins:400,700);\n        </style>\n      <!--<![endif]-->\n\n    \n        \n    <style type=\"text/css\">\n      @media only screen and (max-width:480px) {\n        .mj-column-per-100 { width:100% !important; max-width: 100%; }\n      }\n    </style>\n    \n  \n        <style type=\"text/css\">\n        \n        \n\n    @media only screen and (max-width:480px) {\n      table.full-width-mobile { width: 100% !important; }\n      td.full-width-mobile { width: auto !important; }\n    }\n  \n        </style>\n        <style type=\"text/css\">.hide_on_mobile { display: none !important;} \n        @media only screen and (min-width: 480px) { .hide_on_mobile { display: block !important;} }\n        .hide_section_on_mobile { display: none !important;} \n        @media only screen and (min-width: 480px) { \n            .hide_section_on_mobile { \n                display: table !important;\n            } \n\n            div.hide_section_on_mobile { \n                display: block !important;\n            }\n        }\n        .hide_on_desktop { display: block !important;} \n        @media only screen and (min-width: 480px) { .hide_on_desktop { display: none !important;} }\n        .hide_section_on_desktop { \n            display: table !important;\n            width: 100%;\n        } \n        @media only screen and (min-width: 480px) { .hide_section_on_desktop { display: none !important;} }\n        \n          p, h1, h2, h3 {\n              margin: 0px;\n          }\n\n          ul, li, ol {\n            font-size: 11px;\n            font-family: Ubuntu, Helvetica, Arial;\n          }\n\n          a {\n              text-decoration: none;\n              color: inherit;\n          }\n\n          @media only screen and (max-width:480px) {\n\n            .mj-column-per-100 { width:100%!important; max-width:100%!important; }\n            .mj-column-per-100 > .mj-column-per-75 { width:75%!important; max-width:75%!important; }\n            .mj-column-per-100 > .mj-column-per-60 { width:60%!important; max-width:60%!important; }\n            .mj-column-per-100 > .mj-column-per-50 { width:50%!important; max-width:50%!important; }\n            .mj-column-per-100 > .mj-column-per-40 { width:40%!important; max-width:40%!important; }\n            .mj-column-per-100 > .mj-column-per-33 { width:33.333333%!important; max-width:33.333333%!important; }\n            .mj-column-per-100 > .mj-column-per-25 { width:25%!important; max-width:25%!important; }\n\n            .mj-column-per-100 { width:100%!important; max-width:100%!important; }\n            .mj-column-per-75 { width:100%!important; max-width:100%!important; }\n            .mj-column-per-60 { width:100%!important; max-width:100%!important; }\n            .mj-column-per-50 { width:100%!important; max-width:100%!important; }\n            .mj-column-per-40 { width:100%!important; max-width:100%!important; }\n            .mj-column-per-33 { width:100%!important; max-width:100%!important; }\n            .mj-column-per-25 { width:100%!important; max-width:100%!important; }\n        }</style>\n        \n      </head>\n      <body style=\"background-color:#151415; display:grid; place-items: center; min-height: 100vh;\">\n        \n        \n      <div style=\"background-color:#151415;\">\n        \n      \n      <!--[if mso | IE]>\n      <table\n         align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"\" style=\"width:600px;\" width=\"600\"\n      >\n        <tr>\n          <td style=\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\">\n      <![endif]-->\n    \n      \n      <div style=\"background:transparent;background-color:transparent;margin:0px auto;max-width:600px;\">\n        \n        <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"background:transparent;background-color:transparent;width:100%;\">\n          <tbody>\n            <tr>\n              <td style=\"direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;\">\n                <!--[if mso | IE]>\n                  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n                \n        <tr>\n      \n            <td\n               class=\"\" style=\"vertical-align:top;width:600px;\"\n            >\n          <![endif]-->\n            \n      <div class=\"mj-column-per-100 outlook-group-fix\" style=\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\">\n        \n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"vertical-align:top;\" width=\"100%\">\n        \n            <tr>\n              <td align=\"center\" style=\"font-size:0px;padding:12px 10px 10px 20px;word-break:break-word;\">\n                \n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"border-collapse:collapse;border-spacing:0px;\">\n        <tbody>\n          <tr>\n            <td style=\"width:90px;\">\n              \n      <img height=\"auto\" src=\"/logos/lazy-lab-logo-7-white.png\" style=\"border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;\" width=\"90\">\n    \n            </td>\n          </tr>\n        </tbody>\n      </table>\n    \n              </td>\n            </tr>\n          \n            <tr>\n              <td align=\"left\" style=\"font-size:0px;padding:15px 15px 15px 15px;word-break:break-word;\">\n                \n      <div style=\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1.5;text-align:left;color:#000000;\"><h1 style=\"font-family: 'Cabin', sans-serif; font-size: 22px; text-align: center;\"><span style=\"font-size: 26px; color: rgb(216, 29, 191); background-color: rgb(0, 0, 0);\"><strong><span style=\"font-family: Poppins, sans-serif;\"><span style=\"color: rgb(237, 96, 245);\"><span style=\"color: rgb(0, 219, 222);\">Mock server</span> is running</span> </span></strong></span></h1>\n<h1 style=\"font-family: 'Cabin', sans-serif; font-size: 22px; text-align: center;\"><span style=\"font-size: 26px; color: rgb(216, 29, 191); background-color: rgb(0, 0, 0);\"><strong><span style=\"font-family: Poppins, sans-serif;\"><span style=\"color: rgb(255, 255, 255);\">just for</span> <span style=\"color: rgb(230, 126, 35);\">you</span></span></strong></span></h1></div>\n    \n              </td>\n            </tr>\n          \n      </table>\n    \n      </div>\n    \n          <!--[if mso | IE]>\n            </td>\n          \n        </tr>\n      \n                  </table>\n                <![endif]-->\n              </td>\n            </tr>\n          </tbody>\n        </table>\n        \n      </div>\n    \n      \n      <!--[if mso | IE]>\n          </td>\n        </tr>\n      </table>\n      \n      <table\n         align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"\" style=\"width:600px;\" width=\"600\"\n      >\n        <tr>\n          <td style=\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\">\n      <![endif]-->\n    \n      \n      <div style=\"background:transparent;background-color:transparent;margin:0px auto;max-width:600px;\">\n        \n        <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"background:transparent;background-color:transparent;width:100%;\">\n          <tbody>\n            <tr>\n              <td style=\"direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;\">\n                <!--[if mso | IE]>\n                  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n                \n        <tr>\n      \n            <td\n               class=\"\" style=\"vertical-align:top;width:600px;\"\n            >\n          <![endif]-->\n            \n      <div class=\"mj-column-per-100 outlook-group-fix\" style=\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\">\n        \n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"vertical-align:top;\" width=\"100%\">\n        \n            <tr>\n              <td align=\"center\" style=\"font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;\">\n                \n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"border-collapse:collapse;border-spacing:0px;\">\n        <tbody>\n          <tr>\n            <td style=\"width:408px;\">\n              \n      <img height=\"auto\" src=\"https://media2.giphy.com/media/jGzOai7F7LnkQ/giphy.gif\" style=\"border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;\" width=\"408\">\n    \n            </td>\n          </tr>\n        </tbody>\n      </table>\n    \n              </td>\n            </tr>\n          \n      </table>\n    \n      </div>\n    \n          <!--[if mso | IE]>\n            </td>\n          \n        </tr>\n      \n                  </table>\n                <![endif]-->\n              </td>\n            </tr>\n          </tbody>\n        </table>\n        \n      </div>\n    \n      \n      <!--[if mso | IE]>\n          </td>\n        </tr>\n      </table>\n      \n      <table\n         align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"\" style=\"width:600px;\" width=\"600\"\n      >\n        <tr>\n          <td style=\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\">\n      <![endif]-->\n    \n      \n      <div style=\"background:transparent;background-color:transparent;margin:0px auto;max-width:600px;\">\n        \n        <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"background:transparent;background-color:transparent;width:100%;\">\n          <tbody>\n            <tr>\n              <td style=\"direction:ltr;font-size:0px;padding:0px 0px 0px 0px;text-align:center;\">\n                <!--[if mso | IE]>\n                  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n                \n        <tr>\n      \n            <td\n               class=\"\" style=\"vertical-align:top;width:600px;\"\n            >\n          <![endif]-->\n            \n      <div class=\"mj-column-per-100 outlook-group-fix\" style=\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\">\n        \n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"vertical-align:top;\" width=\"100%\">\n        \n            <tr>\n              <td align=\"center\" vertical-align=\"middle\" style=\"font-size:0px;padding:20px 20px 20px 20px;word-break:break-word;\">\n                \n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"border-collapse:separate;line-height:100%;\">\n        <tr>\n          <td align=\"center\" bgcolor=\"#C82AF6\" role=\"presentation\" style=\"border:none;border-radius:24px;cursor:auto;mso-padding-alt:13px 40px 13px 40px;background:#C82AF6;\" valign=\"middle\">\n            <a href=\"/swagger.json\" style=\"display: inline-block; background: #C82AF6; color: #ffffff; font-family: Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 20px; margin: 0; text-decoration: none; text-transform: none; padding: 13px 40px 13px 40px; mso-padding-alt: 0px; border-radius: 24px;\" target=\"_blank\">\n              <span><strong><span style=\"font-size: 16px; font-family: Verdana, sans-serif;\">Check swagger<br></span></strong></span>\n            </a>\n          </td>\n        </tr>\n      </table>\n    \n              </td>\n            </tr>\n          \n            <tr>\n              <td align=\"left\" style=\"font-size:0px;padding:15px 15px 8px 15px;word-break:break-word;\">\n                \n      <div style=\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1.5;text-align:left;color:#000000;\"><h3 style=\"font-size: 13px; font-family: Ubuntu, Helvetica, Arial; text-align: center;\"><span style=\"font-size: 17px;\"><strong><span style=\"color: rgb(255, 255, 255); font-family: Poppins, sans-serif;\">Don't forget to turn me down on production<br></span></strong></span></h3></div>\n    \n              </td>\n            </tr>\n          \n            <tr>\n              <td align=\"center\" style=\"font-size:0px;padding:9px 35px 9px 35px;word-break:break-word;\">\n                \n      <div style=\"font-family:Lato, Tahoma, sans-serif;font-size:11px;line-height:1.5;text-align:center;color:#D8D8D8;\"><p style=\"font-size: 11px; font-family: Ubuntu, Helvetica, Arial;\">Lazy Lab Development Team<br>made with ❤</p></div>\n    \n              </td>\n            </tr>\n          \n            <tr>\n              <td style=\"font-size:0px;word-break:break-word;\">\n                \n      \n    <!--[if mso | IE]>\n    \n        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr><td height=\"70\" style=\"vertical-align:top;height:70px;\">\n      \n    <![endif]-->\n  \n      <div style=\"height:70px;\">\n        &nbsp;\n      </div>\n      \n    <!--[if mso | IE]>\n    \n        </td></tr></table>\n      \n    <![endif]-->\n  \n    \n              </td>\n            </tr>\n          \n      </table>\n    \n      </div>\n    \n          <!--[if mso | IE]>\n            </td>\n          \n        </tr>\n      \n                  </table>\n                <![endif]-->\n              </td>\n            </tr>\n          </tbody>\n        </table>\n        \n      </div>\n    \n      \n      <!--[if mso | IE]>\n          </td>\n        </tr>\n      </table>\n      <![endif]-->\n    \n    \n      </div>\n    \n      </body>\n    </html>",
           "latency": 0,
           "statusCode": 200,
           "label": "",
-          "headers": [],
-          "bodyType": "INLINE",
-          "filePath": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/html"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "/runtime_data/index.html",
           "databucketID": "",
-          "sendFileAsBody": false,
+          "sendFileAsBody": true,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
@@ -39,7 +71,7 @@
     {
       "uuid": "ecebe84e-3e74-425c-83d5-84be07a5abb1",
       "type": "http",
-      "documentation": "",
+      "documentation": "Simple healthcheck",
       "method": "get",
       "endpoint": "status",
       "responses": [
@@ -63,9 +95,152 @@
       ],
       "enabled": true,
       "responseMode": null
+    },
+    {
+      "uuid": "e51225a9-814e-4556-98e1-94cf20d2c5c5",
+      "type": "http",
+      "documentation": "Authorize into the system",
+      "method": "post",
+      "endpoint": "auth/login",
+      "responses": [
+        {
+          "uuid": "28b8b975-1b7e-4ec6-911b-3185b676b172",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful login",
+          "headers": [
+            {
+              "key": "Set-Cookie",
+              "value": "AuthToken=mock--auth-token; HttpOnly; Path=/mock; SameSite=Strict"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "37ab5723-4ec7-41d0-ba9b-a2f01068aaab",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Invalid auth payload provided",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "fb4ac176-d94f-4920-9f1f-ea6d1347a0f5",
+      "type": "http",
+      "documentation": "Main page",
+      "method": "get",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "07bdee94-b742-4fb6-9316-ec35b90c6c44",
+          "body": "<!doctype html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n\n<head>\n  <title> Mock Server Home | LazyLab </title>\n  <!--[if !mso]><!-- -->\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <!--<![endif]-->\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <style type=\"text/css\">\n    #outlook a {\n        padding: 0;\n    }\n    body {\n        margin: 0;\n        padding: 0;\n        -webkit-text-size-adjust: 100%;\n        -ms-text-size-adjust: 100%;\n    }\n    table,\n    td {\n        border-collapse: collapse;\n        mso-table-lspace: 0pt;\n        mso-table-rspace: 0pt;\n    }\n    img {\n        border: 0;\n        height: auto;\n        line-height: 100%;\n        outline: none;\n        text-decoration: none;\n        -ms-interpolation-mode: bicubic;\n    }\n    p {\n        display: block;\n        margin: 13px 0;\n    }\n  </style>\n  <link rel=\"icon\" type=\"image/svg+xml\" href=\"/favicon-4.svg\">\n  <link href=\"https://fonts.googleapis.com/css?family=Lato:400,700\" rel=\"stylesheet\" type=\"text/css\">\n  <link href=\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\" rel=\"stylesheet\" type=\"text/css\">\n  <link href=\"https://fonts.googleapis.com/css?family=Cabin:400,700\" rel=\"stylesheet\" type=\"text/css\">\n  <link href=\"https://fonts.googleapis.com/css?family=Poppins:400,700\" rel=\"stylesheet\" type=\"text/css\">\n  <style type=\"text/css\">\n    @import url(https://fonts.googleapis.com/css?family=Lato:400,700);\n    @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);\n    @import url(https://fonts.googleapis.com/css?family=Cabin:400,700);\n    @import url(https://fonts.googleapis.com/css?family=Poppins:400,700);\n  </style>\n  <style type=\"text/css\">\n    @media only screen and (max-width:480px) {\n        .mj-column-per-100 {\n            width: 100% !important;\n            max-width: 100%;\n        }\n    }\n  </style>\n  <style type=\"text/css\">\n    @media only screen and (max-width:480px) {\n        table.full-width-mobile {\n            width: 100% !important;\n        }\n    \n        td.full-width-mobile {\n            width: auto !important;\n        }\n    }\n  </style>\n  <style type=\"text/css\">\n    .hide_on_mobile {\n        display: none !important;\n    }\n    \n    @media only screen and (min-width: 480px) {\n        .hide_on_mobile {\n            display: block !important;\n        }\n    }\n    \n    .hide_section_on_mobile {\n        display: none !important;\n    }\n    \n    @media only screen and (min-width: 480px) {\n        .hide_section_on_mobile {\n            display: table !important;\n        }\n    \n        div.hide_section_on_mobile {\n            display: block !important;\n        }\n    }\n    \n    .hide_on_desktop {\n        display: block !important;\n    }\n    \n    @media only screen and (min-width: 480px) {\n        .hide_on_desktop {\n            display: none !important;\n        }\n    }\n    \n    .hide_section_on_desktop {\n        display: table !important;\n        width: 100%;\n    }\n    \n    @media only screen and (min-width: 480px) {\n        .hide_section_on_desktop {\n            display: none !important;\n        }\n    }\n    \n    p,\n    h1,\n    h2,\n    h3 {\n        margin: 0px;\n    }\n    \n    ul,\n    li,\n    ol {\n        font-size: 11px;\n        font-family: Ubuntu, Helvetica, Arial;\n    }\n    \n    a {\n        text-decoration: none;\n        color: inherit;\n    }\n    \n    @media only screen and (max-width:480px) {\n    \n        .mj-column-per-100 {\n            width: 100% !important;\n            max-width: 100% !important;\n        }\n    \n        .mj-column-per-100>.mj-column-per-75 {\n            width: 75% !important;\n            max-width: 75% !important;\n        }\n    \n        .mj-column-per-100>.mj-column-per-60 {\n            width: 60% !important;\n            max-width: 60% !important;\n        }\n    \n        .mj-column-per-100>.mj-column-per-50 {\n            width: 50% !important;\n            max-width: 50% !important;\n        }\n    \n        .mj-column-per-100>.mj-column-per-40 {\n            width: 40% !important;\n            max-width: 40% !important;\n        }\n    \n        .mj-column-per-100>.mj-column-per-33 {\n            width: 33.333333% !important;\n            max-width: 33.333333% !important;\n        }\n    \n        .mj-column-per-100>.mj-column-per-25 {\n            width: 25% !important;\n            max-width: 25% !important;\n        }\n    \n        .mj-column-per-100 {\n            width: 100% !important;\n            max-width: 100% !important;\n        }\n    \n        .mj-column-per-75 {\n            width: 100% !important;\n            max-width: 100% !important;\n        }\n    \n        .mj-column-per-60 {\n            width: 100% !important;\n            max-width: 100% !important;\n        }\n    \n        .mj-column-per-50 {\n            width: 100% !important;\n            max-width: 100% !important;\n        }\n    \n        .mj-column-per-40 {\n            width: 100% !important;\n            max-width: 100% !important;\n        }\n    \n        .mj-column-per-33 {\n            width: 100% !important;\n            max-width: 100% !important;\n        }\n    \n        .mj-column-per-25 {\n            width: 100% !important;\n            max-width: 100% !important;\n        }\n    }\n  </style>\n</head>\n<body style=\"background-color:#151415; display:grid; place-items: center; min-height: 100vh;\">\n  <div style=\"background-color:#151415;\">\n    <div style=\"background:transparent;background-color:transparent;margin:0px auto;max-width:600px;\">\n      <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"background:transparent;background-color:transparent;width:100%;\">\n        <tbody>\n          <tr>\n            <td style=\"direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;\">\n              <div class=\"mj-column-per-100 outlook-group-fix\" style=\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\">\n                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"vertical-align:top;\" width=\"100%\">\n                  <tr>\n                    <td align=\"center\" style=\"font-size:0px;padding:12px 10px 10px 20px;word-break:break-word;\">\n                      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"border-collapse:collapse;border-spacing:0px;\">\n                        <tbody>\n                          <tr>\n                            <td style=\"width:90px;\"> <img height=\"auto\" src=\"/logos/lazy-lab-logo-7-white.png\" style=\"border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;\" width=\"90\"> </td>\n                          </tr>\n                        </tbody>\n                      </table>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td align=\"left\" style=\"font-size:0px;padding:15px 15px 15px 15px;word-break:break-word;\">\n                      <div style=\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1.5;text-align:left;color:#000000;\">\n                        <h1 style=\"font-family: 'Cabin', sans-serif; font-size: 22px; text-align: center;\"> <span style=\"font-size: 26px; color: rgb(216, 29, 191); background-color: rgb(0, 0, 0);\"><strong><span style=\"font-family: Poppins, sans-serif;\"><span style=\"color: rgb(237, 96, 245);\"><span style=\"color: rgb(0, 219, 222);\">Mock server</span> is running</span> </span></strong></span> </h1>\n                        <h1 style=\"font-family: 'Cabin', sans-serif; font-size: 22px; text-align: center;\"> <span style=\"font-size: 26px; color: rgb(216, 29, 191); background-color: rgb(0, 0, 0);\"><strong><span style=\"font-family: Poppins, sans-serif;\"><span style=\"color: rgb(255, 255, 255);\">just for</span> <span style=\"color: rgb(230, 126, 35);\">you</span></span></strong></span> </h1>\n                      </div>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n    <div style=\"background:transparent;background-color:transparent;margin:0px auto;max-width:600px;\">\n      <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"background:transparent;background-color:transparent;width:100%;\">\n        <tbody>\n          <tr>\n            <td style=\"direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;\">\n              <div class=\"mj-column-per-100 outlook-group-fix\" style=\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\">\n                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"vertical-align:top;\" width=\"100%\">\n                  <tr>\n                    <td align=\"center\" style=\"font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;\">\n                      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"border-collapse:collapse;border-spacing:0px;\">\n                        <tbody>\n                          <tr>\n                            <td style=\"width:408px;\"> <img height=\"auto\" src=\"https://media2.giphy.com/media/jGzOai7F7LnkQ/giphy.gif\" style=\"border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;\" width=\"408\"> </td>\n                          </tr>\n                        </tbody>\n                      </table>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n    <div style=\"background:transparent;background-color:transparent;margin:0px auto;max-width:600px;\">\n      <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"background:transparent;background-color:transparent;width:100%;\">\n        <tbody>\n          <tr>\n            <td style=\"direction:ltr;font-size:0px;padding:0px 0px 0px 0px;text-align:center;\">\n              <div class=\"mj-column-per-100 outlook-group-fix\" style=\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\">\n                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"vertical-align:top;\" width=\"100%\">\n                  <tr>\n                    <td align=\"center\" vertical-align=\"middle\" style=\"font-size:0px;padding:20px 20px 20px 20px;word-break:break-word;\">\n                      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"border-collapse:separate;line-height:100%;\">\n                        <tr>\n                          <td align=\"center\" bgcolor=\"#C82AF6\" role=\"presentation\" style=\"border:none;border-radius:24px;cursor:auto;mso-padding-alt:13px 40px 13px 40px;background:#C82AF6;\" valign=\"middle\"> <a href=\"/mock/swagger.html\" style=\"display: inline-block; background: #C82AF6; color: #ffffff; font-family: Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 20px; margin: 0; text-decoration: none; text-transform: none; padding: 13px 40px 13px 40px; mso-padding-alt: 0px; border-radius: 24px;\" target=\"_blank\"> <span><strong><span style=\"font-size: 16px; font-family: Verdana, sans-serif;\">Check swagger<br></span></strong></span> </a> </td>\n                        </tr>\n                      </table>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td align=\"left\" style=\"font-size:0px;padding:15px 15px 8px 15px;word-break:break-word;\">\n                      <div style=\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1.5;text-align:left;color:#000000;\">\n                        <h3 style=\"font-size: 13px; font-family: Ubuntu, Helvetica, Arial; text-align: center;\"> <span style=\"font-size: 17px;\"><strong><span style=\"color: rgb(255, 255, 255); font-family: Poppins, sans-serif;\">Don't forget to turn me down on production<br></span></strong></span> </h3>\n                      </div>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td align=\"center\" style=\"font-size:0px;padding:9px 35px 9px 35px;word-break:break-word;\">\n                      <div style=\"font-family:Lato, Tahoma, sans-serif;font-size:11px;line-height:1.5;text-align:center;color:#D8D8D8;\">\n                        <p style=\"font-size: 11px; font-family: Ubuntu, Helvetica, Arial;\">Lazy Lab Development Team<br>made with ❤</p>\n                      </div>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td style=\"font-size:0px;word-break:break-word;\">\n                      <div style=\"height:70px;\"> &nbsp; </div>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n  </div>\n</body>\n</html>",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/html"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "80aba387-2852-42f1-871a-807447fe481e",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "swagger.html",
+      "responses": [
+        {
+          "uuid": "7a808af9-5cf9-46c8-b941-357f46710de7",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "FILE",
+          "filePath": "/runtime_data/swagger-ui.html",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "270f5ee9-d7bd-4523-8c63-a8cb499f4199",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "openapi.json",
+      "responses": [
+        {
+          "uuid": "0b0c3b2a-0f18-4f15-97b7-0574ef68247a",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "FILE",
+          "filePath": "/runtime_data/openapi.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
     }
   ],
   "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "fb4ac176-d94f-4920-9f1f-ea6d1347a0f5"
+    },
     {
       "type": "route",
       "uuid": "570c2db4-7bcc-46d6-89b5-0da65065b7a4"
@@ -73,6 +248,14 @@
     {
       "type": "route",
       "uuid": "ecebe84e-3e74-425c-83d5-84be07a5abb1"
+    },
+    {
+      "type": "folder",
+      "uuid": "a7ecbcd9-f62a-4522-8175-7f074358cafe"
+    },
+    {
+      "type": "folder",
+      "uuid": "4410021f-a118-43a2-89b6-3a7c3329bbba"
     }
   ],
   "proxyMode": false,
