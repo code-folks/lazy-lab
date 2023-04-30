@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@2.1.1
-
 executors:
   backend_executor:
     docker:
@@ -13,38 +10,184 @@ jobs:
     executor: backend_executor
     working_directory: ~/project/services/core-api/app
     steps:
-      - setup_remote_docker
-      - checkout:
-          path: ~/project
-      - python/install-packages:
-          pkg-manager: poetry
-      - run:
-          name: Run migration check
-          command: |
-            poetry run python manage.py makemigrations --dry-run --check
-            exit $?
-      # - run:
-      #     name: Run mypy
-      #     command: |
-      #       poetry run mypy .
-      - run:
-          name: Run black
-          command: |
-            poetry run black . --check
-      - run:
-          name: Run ruff
-          command: |
-            poetry run ruff check .
-      - run:
-          name: Run isort
-          command: |
-            poetry run isort --check-only .
-      # - run:
-      #     name: Collect static files # no STATIC_ROOT for now
-      #     command: |
-      #       poetry run python manage.py collectstatic --noinput
+    - setup_remote_docker
+    - checkout:
+        path: ~/project
+    - run:
+        command: |-
+          if [ ! "${BASH_ENV_PYTHON_ALIASED}" ]; then
+              echo 'if [ ! $(command -v python) ]; then
+            shopt -s expand_aliases
+            alias python=python3
+            alias pip=pip3
+          fi
+
+          BASH_ENV_PYTHON_ALIASED=true' >> "$BASH_ENV"
+          fi
+        name: Alias Python
+    - run:
+        command: |-
+          CACHE_DIR="/tmp/cci_pycache"
+          LOCKFILE_PATH="${CACHE_DIR}/lockfile"
+          LOCK_FILE="/home/circleci/project/services/core-api/poetry.lock"
+
+          mkdir -p "${CACHE_DIR}"
+
+          FULL_LOCK_FILE=$(readlink -f "${LOCK_FILE}")
+
+          if [ -f "${LOCK_FILE}" ]; then
+              echo "INFO: Copying ${FULL_LOCK_FILE} to ${LOCKFILE_PATH}"
+              cp "${FULL_LOCK_FILE}" "${LOCKFILE_PATH}"
+          else
+              echo "WARNING: Could not find lockfile at ${LOCK_FILE}"
+          fi
+        environment:
+          PARAM_PYPI_CACHE: true
+          PARAM_VENV_CACHE: true
+        name: Link lockfile
+        working_directory: .
+    - run:
+        command: python --version | cut -d ' ' -f2 > /tmp/python-version
+        name: Save python version
+    - restore_cache:
+        keys:
+        - v1-cci_pycache-{{ .Branch }}-{{ checksum "/tmp/cci_pycache/lockfile" }}-{{ checksum "/tmp/python-version" }}-
+    - run:
+        command: |-
+          recurse() {
+              if [ ! -d "$1" ] || [ ! -e "$2" ]; then
+                  mv -u "$1" "$2" || exit
+                  return
+              fi
+              for entry in "$1/"* "$1/."[!.]* "$1/.."?*; do
+                  if [ -e "$entry" ]; then
+                      recurse "$entry" "$2/${entry##"$1/"}"
+                  fi
+              done
+          }
+
+          restore_paths() {
+              if [ -d "${1}" ] && [ -n "$(ls -A "${1}" 2>/dev/null)" ]; then
+                  for file in "${1}"/*; do
+                      decoded=$(basename "${file}" | base64 -d)
+                      parent_dir=$(dirname "${decoded}")
+
+                      # make sure the parent directories exist
+                      if [ ! -d "${parent_dir}" ]; then
+                          mkdir -p "${parent_dir}"
+                      fi
+
+                      echo "INFO: Restoring ${file} to ${decoded}"
+
+                      recurse "${file}" "${decoded}"
+                  done
+              fi
+          }
+
+          CACHE_DIR="/tmp/cci_pycache"
+
+          if [ "${PARAM_VENV_CACHE}" = "1" ]; then
+              restore_paths "${CACHE_DIR}/venv"
+          fi
+
+          if [ "${PARAM_PYPI_CACHE}" = "1" ]; then
+              restore_paths "${CACHE_DIR}/pypi"
+          fi
+        environment:
+          PARAM_PYPI_CACHE: true
+          PARAM_VENV_CACHE: true
+        name: Move restored cache
+        working_directory: .
+    - run:
+        command: "poetry install --no-ansi \n"
+        name: Install dependencies with poetry using project pyproject.toml
+        working_directory: .
+    - run:
+        command: |-
+          LOCK_FILE="/home/circleci/project/services/core-api/poetry.lock"
+          VENV_PATHS='[ "/home/circleci/.cache/pypoetry/virtualenvs" ]'
+          CACHE_PATHS='[ "/home/circleci/.cache/pip" ]'
+          CACHE_DIR="/tmp/cci_pycache"
+
+          mkdir -p "${CACHE_DIR}"
+
+          link_paths() {
+              if [ -d "${1}" ]; then
+                  echo "INFO: Cache directory already exists. Skipping..."
+                  return
+              fi
+
+              mkdir "${1}"
+
+              for encoded in $(echo "${2}" | jq -r '.[] | @base64'); do
+                  decoded=$(echo "${encoded}" | base64 -d)
+
+                  if [ -e "${decoded}" ]; then
+                      echo "INFO: Copying ${decoded} to ${1}/${encoded}"
+                      cp -a "${decoded}" "${1}/${encoded}"
+                  else
+                      echo "INFO: Could not find ${decoded}. Skipping..."
+                  fi
+              done
+          }
+
+          if [ "${PARAM_VENV_CACHE}" = "1" ] && [ -n "${VENV_PATHS}" ]; then
+              link_paths "${CACHE_DIR}/venv" "${VENV_PATHS}"
+          fi
+
+          if [ "${PARAM_PYPI_CACHE}" = "1" ]; then
+              link_paths "${CACHE_DIR}/pypi" "${CACHE_PATHS}"
+          fi
+
+          LOCKFILE_PATH="${CACHE_DIR}/lockfile"
+
+          if [ -e "${LOCKFILE_PATH}" ]; then
+              rm -f "${LOCKFILE_PATH}"
+          fi
+
+          if [ -e "${LOCK_FILE}" ]; then
+              FULL_LOCK_FILE=$(readlink -f "${LOCK_FILE}")
+
+              echo "INFO: Copying ${FULL_LOCK_FILE} to ${LOCKFILE_PATH}"
+              cp "${FULL_LOCK_FILE}" "${LOCKFILE_PATH}"
+          fi
+
+        environment:
+          PARAM_PYPI_CACHE: true
+          PARAM_VENV_CACHE: true
+        name: Copy to cache directory
+        working_directory: .
+    - save_cache:
+        key: v1-cci_pycache-{{ .Branch }}-{{ checksum "/tmp/cci_pycache/lockfile" }}-{{ checksum "/tmp/python-version" }}-
+        paths:
+        - /tmp/cci_pycache
+    - run:
+        name: Run migration check
+        command: |
+          poetry run python manage.py makemigrations --dry-run --check
+          exit $?
+    # - run:
+    #       name: Run mypy
+    #       command: |
+    #         poetry run mypy .
+    - run:
+        name: Run black
+        command: |
+          poetry run black . --check
+    - run:
+        name: Run ruff
+        command: |
+          poetry run ruff check .
+    - run:
+        name: Run isort
+        command: |
+          poetry run isort --check-only .
+    # - run:
+    #     name: Collect static files # no STATIC_ROOT for now
+    #     command: |
+    #       poetry run python manage.py collectstatic --noinput
 
 workflows:
   build-test-deploy:
     jobs:
-      - build-backend
+    - build-backend
