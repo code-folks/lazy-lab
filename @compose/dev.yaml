@@ -50,8 +50,11 @@ services:
     <<: *shared-dev
 # -------------------------------------------------
   api-mock:
-    image: mockoon/cli:3.0.0
-    command: ["--data", "/runtime_data/lazy-lab.mockoon.json", "--port", "3000"]
+    image: ${COMPOSE_PROJECT_NAME}-mockoon
+    build:
+      args:
+        - MOCKOON_VERSION=3.0.0
+      context: ./@compose/dev_data/mockoon
     volumes:
-      - ./@compose/dev_data/mockoon:/runtime_data
+      - ./@compose/dev_data/mockoon/runtime_data:/runtime_data
     <<: *shared-dev
