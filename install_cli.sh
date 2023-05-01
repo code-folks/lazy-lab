@@ -2,7 +2,7 @@
 echo "- Putting all the 🔬 on table."
 pip install -r ./cli/requirements.txt --exists-action s --quiet &> /dev/null
 echo "- Making new command executable."
-chmod --reference=install_cli.sh ./lab
+chmod u+x ./lab
 ./lab --install-completion &> /dev/null
 echo -e "\033[1;32mSuccess! remember to wear your 🥼 in labolatory.\033[0;0m"
 echo "Restart shell to use auto-completition for a new CLI."

@@ -26,6 +26,14 @@ def dev_client():
         rich.print(f":whale::dash: Docker says:\n {err}")
         typer.Exit(1)
 
+@dev_cli.command("build")
+def build():
+    """ Builds dev containers."""
+    with dev_client() as docker_client:
+        console = rich.console.Console(soft_wrap=True)
+        with console.status("Building new species 🧬 ...", spinner="arc"):
+            docker_client.compose.build(quiet=True)
+    console.print("[cyan3] 👌 Done...")
 
 @dev_cli.command("run")
 @dev_cli.command("start")
@@ -40,7 +48,6 @@ def run(d: bool = True, all: bool = False, build: bool=False, browser:bool=True)
     link_to_open = MOCK_GATEWAY_LINK if dev_cfg.use_mock else GATEWAY_LINK
     if browser:
         typer.launch(link_to_open)
-
 
 @dev_cli.command("stop")
 def stop():

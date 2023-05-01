@@ -105,7 +105,7 @@
       "responses": [
         {
           "uuid": "28b8b975-1b7e-4ec6-911b-3185b676b172",
-          "body": "{}",
+          "body": "{\n  \"email\": {{body 'username'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful login",

@@ -14,8 +14,6 @@ COPY $PROJECT_DIR/package.json $PROJECT_DIR/yarn.lock $RUNTIME_DIR/
 WORKDIR $APP_ROOT
 RUN yarn install --non-interactive --pure-lockfile
 
-FROM dependencies as base
-
 COPY --chown=runtime_user:runtime_user $PROJECT_DIR $APP_ROOT
 ONBUILD RUN yarn build:docker
 
