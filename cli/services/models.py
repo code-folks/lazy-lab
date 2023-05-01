@@ -4,6 +4,7 @@ import inspect
 
 import typing as t
 from contextlib import contextmanager
+from functools import partial
 from pathlib import Path
 
 import typer
@@ -119,10 +120,11 @@ def clear_compose():
             f"Command: `{err.docker_command}`"
         )
 
-
-def expose_to_cli(func: t.Callable):
+T = t.TypeVar("T", bound=t.Callable)
+def expose_to_cli(func: T) -> T:
     func._exposed = True
     return func
+
 
 def is_exposed(method) -> bool:
     return ( 
@@ -160,30 +162,53 @@ class ComposableService:
 
     @expose_to_cli
     def build(self, quiet: bool=True):
-        """ Builds service 
+        """ Builds service.
 
         EQUIVALENT OF => `docker compose build *service-name*`."""
         self.compose.build(self.compose_id, quiet=quiet)
 
     @expose_to_cli
-    def run(self, command: str):
-        """ Runs command inside service container 
+    def run(self, command: str, remove:bool=True):
+        """ Runs command inside service container.
 
         EQUIVALENT OF => `docker compose run *service-name* COMMAND`."""
         with clear_compose():
-            self.compose.run(self.name, command=[command])
+            self.compose.run(self.name, command=[command], remove=remove)
 
     @expose_to_cli
-    def shell(self):
-        """ Runs command inside service container 
+    def exec(self, command: str):
+        """ Execs command inside running service container.
 
-        EQUIVALENT OF => `docker compose exec *service-name* bash`."""
+        EQUIVALENT OF => `docker compose exec *service-name* COMMAND`."""
+        with clear_compose():
+            self.compose.execute(self.name, command=[command])
+
+    @expose_to_cli
+    def bash(self,):
+        """ Starts bash inside fresh container.
+
+        EQUIVALENT OF => `docker compose run --rm *service-name* bash`."""
+        with clear_compose():
+            self.shell(attach=False)
+
+    @expose_to_cli
+    def shell(self, attach: bool=True):
+        """ Starts shell inside running  service container.
+
+        This will try to run `bash` first if not found it will try to run `sh`.
+
+        EQUIVALENT OF (when attach=True) => `docker compose exec *service-name* bash`.
+        EQUIVALENT OF (when attach=False) => `docker compose run --rm *service-name* bash`.
+        """
         try_commands = ["bash", "sh"]
+        runner = partial(self.compose.execute, service=self.name) 
+        if not attach:
+            runner = partial(self.compose.run, service=self.name, remove=True)
         with clear_compose():
             last_exception = None
             for command in try_commands:
                 try:
-                    self.compose.execute(self.name, command=[command])
+                    runner(command=[command])
                 except DockerException as err:
                     last_exception = err
                     continue
@@ -192,7 +217,7 @@ class ComposableService:
 
     @expose_to_cli
     def up(self, force_recreate:bool=False, detach:bool=True):
-        """ Starts the service container 
+        """ Starts service with all dependencies.
 
         EQUIVALENT OF => `docker compose up *service-name*`."""
         with clear_compose():
@@ -200,7 +225,7 @@ class ComposableService:
 
     @expose_to_cli
     def logs(self, timestamps:bool=False, follow:bool=False, tail:str = "all", short_prefix:bool=True):
-        """ Stops the service container 
+        """ Attaches into service logs.
 
         EQUIVALENT OF => `docker compose logs *service-name*`."""
         template = "{prefix} | {data}" if short_prefix else "{data}"
@@ -232,7 +257,15 @@ class ComposableService:
         return inspect.getmembers(self, is_exposed)
 
     def as_command(self) -> typer.Typer:
-        service_cli = typer.Typer(name=self.name.lower())
+        service_help = (
+            f"CLI for **{self.name.lower()}** service "
+            f"located in: *{', '.join(self.compose.client_config.compose_files)}*."
+        )
+        service_cli = typer.Typer(
+            name=self.name.lower(),
+            no_args_is_help=True,
+            help=service_help
+        )
         exposed_methods = self._get_exposed_methods()
         for method_name, method in exposed_methods:
             help_doc = inspect.getdoc(method).replace("*service-name*", self.name.lower())

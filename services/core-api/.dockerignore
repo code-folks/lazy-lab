@@ -1,7 +1,7 @@
 requirements.in
 requirements-dev.in
 sample.env
-
+app/staticfiles
 **/__pycache__
 **/.venv
 **/.classpath
