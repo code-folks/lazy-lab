@@ -19,6 +19,7 @@ django-filter = "^23.1"
 uvicorn = {extras = ["standard"], version = "^0.21.1"}
 boto3 = "^1.26.109"
 psycopg2 = "^2.9.6"
+django-environ = "0.10.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
@@ -31,6 +32,8 @@ faker = "^18.4.0"
 isort = "5.12.0"
 black = "^23.3.0"
 ruff = "^0.0.261"
+django-debug-toolbar = "^4.0.0"
+django-extensions = "^3.2.1"
 
 [tool.poetry.group.docs.dependencies]
 mkdocstrings = {extras = ["python"], version = "^0.19.0"}
@@ -82,7 +85,7 @@ select = [
     # pyflakes
     "F",
     # pygrep-hooks
-    "PGH",
+    # "PGH",
     # pyupgrade
     "UP",
     # ruff

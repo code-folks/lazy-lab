@@ -5,7 +5,7 @@ volumes:
 # We cache pip so we dont need to populate it everytime
   pip-cache:
 
-x-common: 
+x-common:
     &common
     restart: on-failure
     logging:
@@ -26,7 +26,7 @@ services:
     image: ${COMPOSE_PROJECT_NAME}-core
     build:
       args:
-        - PYTHON_VERSION=3.10.6
+        - PYTHON_VERSION=3.11.3
       context: ./services/core-api
     profiles:
       - essential

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   fill="#000000"
+   width="54.185104"
+   height="51.699768"
+   viewBox="0 0 1.3546275 1.2924942"
+   version="1.1"
+   id="svg4"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8">
+    <linearGradient
+       gradientTransform="scale(1.066369,0.93776167)"
+       x1="328.21661"
+       y1="0"
+       x2="328.21661"
+       y2="746.45831"
+       id="ffflux-gradient"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="hsl(315, 100%, 72%)"
+         stop-opacity="1"
+         offset="0%"
+         id="stop1226" />
+      <stop
+         stop-color="hsl(227, 100%, 50%)"
+         stop-opacity="1"
+         offset="100%"
+         id="stop1228" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="scale(1.066369,0.93776167)"
+       x1="328.21661"
+       y1="0"
+       x2="328.21661"
+       y2="746.45831"
+       id="violet"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="hsl(315, 100%, 72%)"
+         stop-opacity="1"
+         offset="0%"
+         id="stop838"
+         style="stop-color:#00dbde;stop-opacity:1" />
+      <stop
+         stop-color="hsl(227, 100%, 50%)"
+         stop-opacity="1"
+         offset="100%"
+         id="stop840"
+         style="stop-color:#fc00ff;stop-opacity:1" />
+    </linearGradient>
+    <filter
+       id="ffflux-filter"
+       x="-0.068571426"
+       y="0"
+       width="1.1371429"
+       height="1"
+       filterUnits="objectBoundingBox"
+       primitiveUnits="userSpaceOnUse"
+       color-interpolation-filters="sRGB">
+      <feTurbulence
+         type="fractalNoise"
+         baseFrequency="0.005 0.003"
+         numOctaves="1"
+         seed="13"
+         stitchTiles="stitch"
+         x="0%"
+         y="0%"
+         width="100%"
+         height="100%"
+         result="turbulence"
+         id="feTurbulence843" />
+      <feGaussianBlur
+         stdDeviation="20 0"
+         x="0%"
+         y="0%"
+         width="100%"
+         height="100%"
+         in="turbulence"
+         edgeMode="duplicate"
+         result="blur"
+         id="feGaussianBlur845" />
+      <feBlend
+         mode="color-dodge"
+         x="0%"
+         y="0%"
+         width="100%"
+         height="100%"
+         in="SourceGraphic"
+         in2="blur"
+         result="blend"
+         id="feBlend847" />
+    </filter>
+    <linearGradient
+       xlink:href="#violet"
+       id="linearGradient1137"
+       x1="0.99443144"
+       y1="1.7976782"
+       x2="1.2605646"
+       y2="2.0462656"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(4.3345295,0,0,4.3345295,-4.4735075,-7.8332139)" />
+  </defs>
+  <text
+     xml:space="preserve"
+     style="font-size:1.6px;line-height:1.25;font-family:Chunk;-inkscape-font-specification:Chunk;letter-spacing:0px;word-spacing:0px;stroke-width:0.025"
+     x="16.362225"
+     y="-0.79013634"
+     id="text76230"><tspan
+       id="tspan76228"
+       style="stroke-width:0.025"
+       x="16.362225"
+       y="-0.79013634" /></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.6px;line-height:1.25;font-family:ChunkFive;-inkscape-font-specification:ChunkFive;letter-spacing:0px;word-spacing:0px;stroke-width:0.025"
+     x="13.048204"
+     y="-1.7396373"
+     id="text2229"><tspan
+       id="tspan2227"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:ChunkFive;-inkscape-font-specification:ChunkFive;stroke-width:0.025"
+       x="13.048204"
+       y="-1.7396373" /></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.6px;line-height:1.25;font-family:ChunkFive;-inkscape-font-specification:ChunkFive;letter-spacing:0px;word-spacing:0px;stroke-width:0.025"
+     x="16.545279"
+     y="-0.075906605"
+     id="text3883"><tspan
+       id="tspan3881"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:ChunkFive;-inkscape-font-specification:ChunkFive;stroke-width:0.025"
+       x="16.545279"
+       y="-0.075906605" /></text>
+  <ellipse
+     style="mix-blend-mode:normal;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient1137);stroke-width:0.19999999;stroke-miterlimit:4;stroke-dasharray:none"
+     id="path31154-4"
+     cx="0.67731375"
+     cy="0.64624703"
+     rx="0.49805477"
+     ry="0.46698806" />
+</svg>
