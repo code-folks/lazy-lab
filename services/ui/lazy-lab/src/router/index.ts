@@ -1,14 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { updateTitleGuard } from './guards';
 
-const Home = { template: '<div>Home</div>' };
 const About = { template: '<div>About</div>' };
 
 
 // Routes Declaration
 export const routes = [
-	{ path: '/', component: Home },
 	{ path: '/about', component: About },
+	// Home Section
+	{ 
+		path: '/home',
+		component: () => import(/* webpackChunkName: 'home' */ '../modules/home/Home.vue'),
+	},
 	// Auth Section
 	{
 		path: '/auth/login',

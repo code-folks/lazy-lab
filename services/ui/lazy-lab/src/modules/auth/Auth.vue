@@ -4,7 +4,7 @@
       class="relative z-10 flex min-h-full items-center shadow justify-center rounded bg-white px-8 py-16 sm:px-6 lg:px-12">
       <div class="w-full grow max-w-md space-y-8">
         <div>
-          <img class="mx-auto h-16 w-auto" src="/logos/lazy-lab-logo-7.svg" alt="Your Company" />
+          <img class="mx-auto h-16 w-auto" src="/logos/lazy-lab-logo-7b.svg" alt="Your Company" />
           <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-zinc-800">Sign in to your account</h2>
         </div>
         <form class="mt-8 space-y-8" action="#" method="POST">

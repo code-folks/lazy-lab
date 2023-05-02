@@ -19,17 +19,17 @@ const { isDev } = useDev("mock");
 .dev-indicator {
   color: #fff;
   position: absolute;
-  top: 1.5rem;
-  right: 0px;
+  top: 0px;
+  right: 2rem;
   background: #111;
   width: auto;
   z-index: 40;
-  padding: 0.42rem 0.6rem;
+  padding: 0.34rem 0.48rem;
   font-size: 0.80rem;
   line-height: 1.1;
   font-weight: 200;
   border-bottom-left-radius: 12px;
-  border-top-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   span {
     font-weight: 500;
     font-size: 0.85rem;
