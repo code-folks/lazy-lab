@@ -160,22 +160,22 @@ const layer3 = computed(() => ({
             bottom: 0;
 
             &:nth-child(1) {
-                background-image: url("/home-parallax/layer_0_1.png");
+                background-image: url("/home-parallax/layer_0_1_small.png");
                 z-index: 5;
             }
 
             &:nth-child(2) {
-                background-image: url("/home-parallax/layer_0_2.png");
+                background-image: url("/home-parallax/layer_0_2_small.png");
                 z-index: 4;
             }
 
             &:nth-child(3) {
-                background-image: url("/home-parallax/layer_0_3.png");
+                background-image: url("/home-parallax/layer_0_3_small.png");
                 z-index: 3;
             }
 
             &:nth-child(4) {
-                background-image: url("/home-parallax/layer_0_4.png");
+                background-image: url("/home-parallax/layer_0_4_small.png");
                 z-index: 1;
             }
         }
