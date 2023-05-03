@@ -122,11 +122,13 @@ const layer3 = computed(() => ({
 
 <style lang="scss" scoped>
 .home {
+
     .home-content {
         overflow: hidden;
-    }
-
-    .container {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: repeat;
+        background-image: url("/home-parallax/grid_1.svg");
         background-color: #090809;
     }
 
