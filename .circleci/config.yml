@@ -22,6 +22,7 @@ commands:
             cat \<<EOF >>$BASH_ENV
             export VERSION=$(echo $CIRCLE_SHA1 | cut -c -7)
             export DJANGO_SETTINGS_MODULE=config.settings.test
+            export DATABASE_URL=postgres://lazylab:pass@db:5432/lazylab
             EOF
 
 
