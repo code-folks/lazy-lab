@@ -44,10 +44,10 @@ jobs:
         name: Run isort
         command: |
           poetry run isort --sp=../pyproject.toml --check-only .
-    - run:
-        name: Collect static files # no STATIC_ROOT for now
-        command: |
-          poetry run python manage.py collectstatic --noinput
+    # - run:
+    #     name: Collect static files # no STATIC_ROOT for now
+    #     command: |
+    #       poetry run python manage.py collectstatic --noinput
 
 workflows:
   build-test-deploy:
