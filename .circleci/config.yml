@@ -21,8 +21,8 @@ jobs:
         name: Install dependencies with poetry using project pyproject.toml
     - save_cache:
         key: v1-dependencies-{{ .Branch }}-{{ checksum "/home/circleci/project/services/core-api/poetry.lock" }}-
-        # paths:
-        # - /home/circleci/project/services/core-api
+        paths:
+        - /home/circleci/project/services/core-api/.venv
     # - run:
     #     name: Run migration check
     #     command: |
