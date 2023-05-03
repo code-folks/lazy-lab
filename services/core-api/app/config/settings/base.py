@@ -44,13 +44,10 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = []
 LOCAL_APPS = [
-    "modules.users.apps.UsersConfig",
+    "users.apps.UsersConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-# MIGRATION_MODULES = {
-#     "sites": "{{ cookiecutter.project_slug }}.contrib.sites.migrations"
-# }
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
@@ -212,8 +209,6 @@ LOGGING = {
 # # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 # SPECTACULAR_SETTINGS = {
-#     "TITLE": "{{ cookiecutter.project_name }} API",
-#     "DESCRIPTION": "Documentation of API endpoints of {{ cookiecutter.project_name }}",
 #     "VERSION": "1.0.0",
 #     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 # }
