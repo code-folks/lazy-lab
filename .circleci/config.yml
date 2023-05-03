@@ -4,15 +4,36 @@ executors:
   backend_executor:
     docker:
       - image: cimg/python:3.11.3
+  backend__with_postgresql_executor:
+    docker:
+      - image: cimg/python:3.11.3
+      - image: cimg/postgres:14.1
+        environment:
+          POSTGRES_DB: lazylab
+          POSTGRES_USER: lazylab
+          POSTGRES_PASSWORD: pass
+
+commands:
+  load-env-vars:
+    steps:
+      - run:
+          name: Loading environment variables
+          command: |
+            cat \<<EOF >>$BASH_ENV
+            export VERSION=$(echo $CIRCLE_SHA1 | cut -c -7)
+            export DJANGO_SETTINGS_MODULE=config.settings.test
+            EOF
+
 
 jobs:
   build-backend:
-    executor: backend_executor
+    executor: backend__with_postgresql_executor
     working_directory: ~/project/services/core-api/app
     steps:
     - setup_remote_docker
     - checkout:
         path: ~/project
+    - load-env-vars
     - restore_cache:
         keys:
         - v1-dependencies-{{ .Branch }}-{{ checksum "/home/circleci/project/services/core-api/poetry.lock" }}-
