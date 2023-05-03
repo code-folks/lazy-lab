@@ -1,0 +1,77 @@
+version: 2.1
+
+executors:
+  backend_executor:
+    docker:
+      - image: cimg/python:3.11.3
+  backend__with_postgresql_executor:
+    docker:
+      - image: cimg/python:3.11.3
+      - image: cimg/postgres:14.1
+        environment:
+          POSTGRES_DB: lazylab
+          POSTGRES_USER: lazylab
+          POSTGRES_PASSWORD: pass
+
+commands:
+  load-env-vars:
+    steps:
+      - run:
+          name: Loading environment variables
+          command: |
+            cat \<<EOF >>$BASH_ENV
+            export VERSION=$(echo $CIRCLE_SHA1 | cut -c -7)
+            export DJANGO_SETTINGS_MODULE=config.settings.test
+            export DATABASE_URL=postgres://lazylab:pass@db:5432/lazylab
+            EOF
+
+
+jobs:
+  build-backend:
+    executor: backend__with_postgresql_executor
+    working_directory: ~/project/services/core-api/app
+    steps:
+    - setup_remote_docker
+    - checkout:
+        path: ~/project
+    - load-env-vars
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ .Branch }}-{{ checksum "/home/circleci/project/services/core-api/poetry.lock" }}-
+    - run:
+        command: "poetry install --no-ansi \n"
+        name: Install dependencies with poetry using project pyproject.toml
+    - save_cache:
+        key: v1-dependencies-{{ .Branch }}-{{ checksum "/home/circleci/project/services/core-api/poetry.lock" }}-
+        paths:
+        - /home/circleci/project/services/core-api/.venv
+    - run:
+        name: Run migration check
+        command: |
+          poetry run python manage.py makemigrations --dry-run --check
+          exit $?
+    # - run:
+    #       name: Run mypy
+    #       command: |
+    #         poetry run mypy .
+    - run:
+        name: Run black
+        command: |
+          poetry run black . --check
+    - run:
+        name: Run ruff
+        command: |
+          poetry run ruff check .
+    - run:
+        name: Run isort
+        command: |
+          poetry run isort --sp=../pyproject.toml --show-config --check-only .
+    - run:
+        name: Collect static files
+        command: |
+          poetry run python manage.py collectstatic --noinput
+
+workflows:
+  build-test-deploy:
+    jobs:
+    - build-backend

@@ -7,7 +7,7 @@ repository = "https://github.com/code-folks/lazy-lab"
 documentation = "https://code-folks.github.io/lazy-lab/"
 readme = "README.md"
 packages = [
-  {include = "lazy_lab"}
+  {include = "app"}
 ]
 
 [tool.poetry.dependencies]
@@ -30,6 +30,8 @@ pre-commit = "^2.20.0"
 tox = "^3.25.1"
 faker = "^18.4.0"
 isort = "5.12.0"
+black = "^23.3.0"
+ruff = "^0.0.261"
 django-debug-toolbar = "^4.0.0"
 django-extensions = "^3.2.1"
 
@@ -42,8 +44,21 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 88
-target-version = ['py310']
+target-version = ['py311']
 preview = true
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | migrations
+)/
+'''
 
 [tool.mypy]
 files = ["lazy_lab"]
@@ -56,7 +71,7 @@ warn_unused_ignores = "True"
 show_error_codes = "True"
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 line-length = 88
 fix = true
 select = [
@@ -108,9 +123,18 @@ source = ["lazy_lab"]
 
 
 [tool.isort]
+profile = "black"
+known_third_party = [
+  "django"
+]
+known_first_party = [
+    "modules",
+    "config",
+]
 multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap= 0
 use_parentheses = true
 line_length = 88
 skip_glob = '*migrations*,*snapshots*'
+py_version=311

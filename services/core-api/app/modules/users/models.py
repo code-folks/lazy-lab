@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, EmailField
 from django.utils.translation import gettext_lazy as _
-from modules.users.managers import UserManager
+
+from .managers import UserManager
 
 
 class User(AbstractUser):

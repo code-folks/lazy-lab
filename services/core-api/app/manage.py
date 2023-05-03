@@ -21,6 +21,7 @@ def main():
     # project directory.
     current_path = Path(__file__).parent.resolve()
     sys.path.append(str(current_path / "modules"))
+
     execute_from_command_line(sys.argv)
 
 
