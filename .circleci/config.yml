@@ -45,11 +45,11 @@ jobs:
         key: v1-dependencies-{{ .Branch }}-{{ checksum "/home/circleci/project/services/core-api/poetry.lock" }}-
         paths:
         - /home/circleci/project/services/core-api/.venv
-    # - run:
-    #     name: Run migration check
-    #     command: |
-    #       poetry run python manage.py makemigrations --dry-run --check
-    #       exit $?
+    - run:
+        name: Run migration check
+        command: |
+          poetry run python manage.py makemigrations --dry-run --check
+          exit $?
     # - run:
     #       name: Run mypy
     #       command: |
