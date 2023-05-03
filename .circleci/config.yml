@@ -43,7 +43,7 @@ jobs:
     - save_cache:
         key: v1-dependencies-{{ .Branch }}-{{ checksum "/home/circleci/project/services/core-api/poetry.lock" }}-
         paths:
-        - /home/circleci/project/services/core-api
+        - /home/circleci/project/services/core-api/.venv
     # - run:
     #     name: Run migration check
     #     command: |
@@ -64,11 +64,11 @@ jobs:
     - run:
         name: Run isort
         command: |
-          poetry run isort --sp=../pyproject.toml --check-only .
-    - run:
-        name: Collect static files # no STATIC_ROOT for now
-        command: |
-          poetry run python manage.py collectstatic --noinput
+          poetry run isort --sp=../pyproject.toml --show-config --check-only .
+    # - run:
+    #     name: Collect static files # no STATIC_ROOT for now
+    #     command: |
+    #       poetry run python manage.py collectstatic --noinput
 
 workflows:
   build-test-deploy:
