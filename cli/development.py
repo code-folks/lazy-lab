@@ -54,7 +54,7 @@ def stop():
     """ Stops all the dev containers."""
     with dev_client() as docker_client:
         console = rich.console.Console(soft_wrap=True)
-        with console.status("Shuting down... :clap:", spinner="arc"):
+        with console.status("Shutting down... :clap:", spinner="arc"):
             docker_client.compose.down(quiet=True)
     console.print("[cyan3] :hand: Done...")
 

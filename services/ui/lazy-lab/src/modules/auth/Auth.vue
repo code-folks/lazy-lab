@@ -7,12 +7,12 @@
           <img class="mx-auto h-16 w-auto" src="/logos/lazy-lab-logo-7b.svg" alt="Your Company" />
           <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-zinc-800">Sign in to your account</h2>
         </div>
-        <form class="mt-8 space-y-8" action="#" method="POST">
+        <form class="mt-8 space-y-8" action="/mock/auth/login" method="POST">
           <input type="hidden" name="remember" value="true" />
           <div class="-space-y-px rounded-md shadow-sm">
             <div>
-              <label for="email-address" class="sr-only">Email address</label>
-              <input id="email-address" name="email" type="email" autocomplete="email" required="true"
+              <label for="username" class="sr-only">Email address</label>
+              <input id="username" name="username" type="email" autocomplete="email" required="true"
                 class="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-fuchsia-500 sm:text-sm sm:leading-6"
                 placeholder="Email address" />
             </div>

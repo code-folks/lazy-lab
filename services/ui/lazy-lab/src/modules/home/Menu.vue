@@ -7,13 +7,13 @@
             </a>
         </div>
         <div class="flex gap-x-12 text-neutral-50 flex-wrap">
-            <a href="#" class="text-sm font-semibold leading-6 ">Our App</a>
-            <a href="#" class="text-sm font-semibold leading-6 ">Features</a>
-            <a href="#" class="text-sm font-semibold leading-6 ">Support</a>
-            <a href="#" class="text-sm font-semibold leading-6 ">About Us</a>
+            <a href="#" class="text-sm hover:text-fuchsia-300 font-semibold leading-6 ">Our App</a>
+            <a href="#" class="text-sm hover:text-fuchsia-300 font-semibold leading-6 ">Features</a>
+            <a href="#" class="text-sm hover:text-fuchsia-300 font-semibold leading-6 ">Support</a>
+            <a href="#" class="text-sm hover:text-fuchsia-300 font-semibold leading-6 ">About Us</a>
         </div>
         <div class="flex lg:flex-1 justify-end">
-            <router-link class="text-sm font-semibold leading-6" :to="{ name: 'auth:login' }">Log in <span
+            <router-link class="text-sm font-semibold text-neutral-50 hover:text-fuchsia-300 leading-6" :to="{ name: 'auth:login' }">Log in <span
                     aria-hidden="true">&rarr;</span>
             </router-link>
         </div>
