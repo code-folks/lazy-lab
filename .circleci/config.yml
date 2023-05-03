@@ -67,7 +67,7 @@ jobs:
         command: |
           poetry run isort --sp=../pyproject.toml --show-config --check-only .
     - run:
-        name: Collect static files # no STATIC_ROOT for now
+        name: Collect static files
         command: |
           poetry run python manage.py collectstatic --noinput
 
