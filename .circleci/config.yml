@@ -21,8 +21,8 @@ jobs:
         name: Install dependencies with poetry using project pyproject.toml
     - save_cache:
         key: v1-dependencies-{{ .Branch }}-{{ checksum "/home/circleci/project/services/core-api/poetry.lock" }}-
-        paths:
-        - /home/circleci/project/services/core-api
+        # paths:
+        # - /home/circleci/project/services/core-api
     # - run:
     #     name: Run migration check
     #     command: |
@@ -43,7 +43,7 @@ jobs:
     - run:
         name: Run isort
         command: |
-          poetry run isort --sp=../pyproject.toml --check-only .
+          poetry run isort --sp=../pyproject.toml --show-config --check-only .
     # - run:
     #     name: Collect static files # no STATIC_ROOT for now
     #     command: |
