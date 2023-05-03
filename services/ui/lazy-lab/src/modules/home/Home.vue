@@ -1,5 +1,5 @@
 <template>
-    <div class="home w-full grow flex flex-col items-center lg:py-6">
+    <div class="home w-full grow flex flex-col items-center lg:py-8">
         <div class="relative home-content lg:rounded-xl container z-40 grow flex flex-col max-w-screen-xl justify-between items-center gap-y-6"
             ref="target">
             <header class="container z-50 max-w-screen-xl">
@@ -9,7 +9,7 @@
                 <div
                     class="relative rounded-full px-3 py-1 text-sm leading-6 text-neutral-200 ring-1 ring-neutral-600 hover:ring-neutral-500">
                     Announcing our App.
-                    <a href="#" class="font-semibold text-fuchsia-500">Read more <span aria-hidden="true">&rarr;</span></a>
+                    <a href="#" class="font-semibold text-fuchsia-500 hover:text-fuchsia-500">Read more <span aria-hidden="true">&rarr;</span></a>
                 </div>
                 <h1 class="sm:text-center text-4xl font-bold tracking-tight text-neutral-50 sm:text-6xl">Create <span
                         class="text-fuchsia-300">a link</span> with your clients.
