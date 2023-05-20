@@ -1,12 +1,20 @@
 volumes:
 # We cache pip so we dont need to populate it everytime
   lazy-lab-db-cache:
+  firebase-cache:
+  firebase-storage:
 
 x-dev: &shared-dev
   restart: "no"
   env_file: ./@compose/envs/dev.env
   profiles:
-      - dev
+    - dev
+
+secrets:
+  firebase-token:
+    file: ./@compose/secrets/firebase.token
+  firebase-project:
+    file: ./@compose/secrets/firebase.project
 
 services:
 # -------------------------------------------------
@@ -57,4 +65,23 @@ services:
       context: ./@compose/dev_data/mockoon
     volumes:
       - ./@compose/dev_data/mockoon/runtime_data:/runtime_data
+    <<: *shared-dev
+# -------------------------------------------------
+  firebase:
+    image: ${COMPOSE_PROJECT_NAME}-firebase
+    build:
+      context: ./@compose/dev_data/firebase
+    command: emulators:start
+    secrets:
+      - firebase-token
+      - firebase-project
+    ports:
+      - "9080:9080"
+      - "9081:9081"
+      - "9082:9082"
+      - "4900:4900"
+    volumes:
+      - ./@compose/dev_data/firebase/config:/runtime
+      - firebase-cache:/root/.cache/firebase
+      - firebase-storage:/tmp/firebase/storage
     <<: *shared-dev
