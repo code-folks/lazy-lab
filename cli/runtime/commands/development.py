@@ -10,7 +10,7 @@ from python_on_whales.exceptions import DockerException
 from ..config.schema import ConfigSchema
 from ..config.dependencies import resolve_dependencies
 from ..common import  get_docker_client, merge_compose_configs
-
+from ..utils import url_ready
 
 dev_cli = typer.Typer(name="dev", no_args_is_help=True)
 DEV_CFG: ContextVar[ConfigSchema] = ContextVar("CFG", default=None)
@@ -44,6 +44,7 @@ def build():
 def run(d: bool = True, all: bool = False, build: bool=False, browser:bool=True):
     """ Starts the development envirnoment using the configured deveopment files. """
     dev_cfg = DEV_CFG.get().dev
+    link_to_open = MOCK_GATEWAY_LINK if dev_cfg.use_mock else GATEWAY_LINK
     with dev_client() as docker_client:
         console = rich.console.Console(soft_wrap=True)
         console.print("Checking dependencies...:\n")
@@ -52,9 +53,8 @@ def run(d: bool = True, all: bool = False, build: bool=False, browser:bool=True)
             raise typer.Exit(1)
         with console.status("[plum1] Starting [plum2]development [plum3]envirnoment[plum4]... :rocket:", spinner="moon"):
             docker_client.compose.up(detach=d, abort_on_container_exit=all, wait=d, build=build, quiet=True)
-
+            url_ready(link_to_open)
     console.print("[cyan3] :spouting_whale: Project started...")
-    link_to_open = MOCK_GATEWAY_LINK if dev_cfg.use_mock else GATEWAY_LINK
     if browser:
         typer.launch(link_to_open)
 

@@ -1,4 +1,8 @@
 import typing
+import requests
+import time
+
+from datetime import datetime
 from functools import singledispatch
 
 
@@ -52,3 +56,14 @@ def m(x: int, y: int):
 @merge.register
 def m(x: bool, y: bool):
     return x or y
+
+
+def url_ready(url: str, timeout: int=10, max_retry:int = 3):
+    start = datetime.utcnow()
+    response = requests.get(url=url)
+    while not response.ok:
+        delta = datetime.utcnow() - start
+        if delta.seconds >= timeout:
+            return
+        time.sleep(timeout/max_retry)
+        response = requests.get(url=url)

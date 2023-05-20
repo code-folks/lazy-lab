@@ -23,7 +23,9 @@ pygments==2.15.1
 python-on-whales==0.60.1
     # via -r requirements.in
 requests==2.29.0
-    # via python-on-whales
+    # via
+    #   -r requirements.in
+    #   python-on-whales
 rich==12.6.0
     # via
     #   -r requirements.in
