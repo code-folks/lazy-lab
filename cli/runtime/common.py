@@ -1,18 +1,24 @@
 import pathlib
 import typing as t
+
 from python_on_whales import DockerClient
 
-from .config_schema import ComposeConfig
+from .config.schema import ComposeConfig
 from .utils import merge
 
-project_root = pathlib.Path(__file__).parent.parent
+PROJECT_PACKAGE_NAME = "lazy-lab"
+
+CLI_DIR = pathlib.Path(__file__).parent.parent
+PROJECT_DIR = CLI_DIR.parent
+CLI_CONFIG_FILE: pathlib.Path = PROJECT_DIR / "config.local.json"
+CLI_DEFAULT_CONFIG: pathlib.Path = CLI_DIR / "config.default.json"
 
 
 def get_docker_client(cfg: t.Optional[ComposeConfig]=None) -> DockerClient:
     if cfg is None:
-        return DockerClient(compose_project_directory=project_root)
+        return DockerClient(compose_project_directory=PROJECT_DIR)
     return DockerClient(
-        compose_files=cfg.compose_files, compose_profiles=cfg.profiles, compose_project_directory=project_root
+        compose_files=cfg.compose_files, compose_profiles=cfg.profiles, compose_project_directory=PROJECT_DIR
     )
 
 

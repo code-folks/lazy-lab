@@ -4,8 +4,8 @@ import typer
 from contextvars import ContextVar
 import rich
 
-from ..config_schema import ComposeConfig, ConfigSchema
-from ..docker import get_docker_client
+from cli.runtime.config.schema import ComposeConfig, ConfigSchema
+from cli.runtime.common import get_docker_client, PROJECT_DIR
 
 from .models import ComposableService
 
@@ -30,7 +30,7 @@ def get_versions() -> t.Dict[str, str]:
         if not service.has_sources or not service.source.has_config:
             continue
         config_key, config_value = service.source.get_config_entry("version", default="no-version", exact=False)
-        origin = str(service.source.config_file.relative_to(CFG.get().project_root))
+        origin = str(service.source.config_file.relative_to(PROJECT_DIR))
         versions[service.name] = {
             "value": config_value,
             "origin": origin,

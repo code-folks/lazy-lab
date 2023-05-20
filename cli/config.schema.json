@@ -1,0 +1,95 @@
+{
+    "title": "ConfigSchema",
+    "type": "object",
+    "properties": {
+        "dev": {
+            "$ref": "#/definitions/DevCommandConfig"
+        },
+        "docker": {
+            "$ref": "#/definitions/ComposeConfig"
+        }
+    },
+    "definitions": {
+        "ComposeConfig": {
+            "title": "ComposeConfig",
+            "type": "object",
+            "properties": {
+                "compose_files": {
+                    "title": "Compose Files",
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "profiles": {
+                    "title": "Profiles",
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Dependency": {
+            "title": "Dependency",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "target": {
+                    "title": "Target",
+                    "type": "string",
+                    "format": "path"
+                },
+                "help_url": {
+                    "title": "Help Url",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "target"
+            ]
+        },
+        "DevCommandConfig": {
+            "title": "DevCommandConfig",
+            "type": "object",
+            "properties": {
+                "deamon": {
+                    "title": "Deamon",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "use_mock": {
+                    "title": "Use Mock",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "docker_extra": {
+                    "title": "Docker Extra",
+                    "default": {
+                        "compose_files": [],
+                        "profiles": []
+                    },
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ComposeConfig"
+                        }
+                    ]
+                },
+                "dependencies": {
+                    "title": "Dependencies",
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Dependency"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -10,8 +10,9 @@ import pydantic
 
 from .file import ConfigFile, ConfigFileError
 
+C = t.TypeVar("C", bound=pydantic.BaseModel)
 config_cli = typer.Typer(name="config", no_args_is_help=True)
-Config: contextvars.ContextVar[ConfigFile] =  contextvars.ContextVar("Config")
+Config: contextvars.ContextVar[ConfigFile[C]] =  contextvars.ContextVar("Config")
 
 
 @contextmanager
@@ -31,7 +32,7 @@ def show():
     """ Show full config as JSON."""
     with errorles_config() as cfg:
         rich.print_json(
-            data=cfg.preview_full()
+            json=cfg.config_object.json()
         )
 
 @config_cli.command("get")
@@ -70,8 +71,8 @@ def clear(property:str):
 
 @config_cli.command("clear:all")
 def clear():
-    """ Clears the selected property restoring original value.
-    
+    """ Clears the config file to default values.
+
     Example: config clear run.silent
     """
     with errorles_config(succes_emoji=":thumbsup:") as cfg:
@@ -108,9 +109,18 @@ def locate():
     with errorles_config(succes_emoji=":thumbsup:") as cfg:
         typer.launch(cfg.file.as_uri(), locate=True)
 
+@config_cli.command("schema")
+def schema(file: t.Optional[typer.FileTextWrite] = None):
+    """ Shows the config file schema. Useful for external validators."""
+    with errorles_config(succes_emoji=":thumbsup:") as cfg:
+        writter = rich.print_json
+        if file is not None:
+            writter = file.write 
+        writter(cfg.schema.schema_json(indent=4))
 
-C = t.TypeVar("C", bound=pydantic.BaseModel)
 
-def bootstrap_config(config: pathlib.Path, schema: t.Type[C]) -> t.Tuple[typer.Typer, ConfigFile[C]]:
-    Config.set(ConfigFile(file=config, schema=schema))
+def bootstrap_config(
+    config: pathlib.Path, schema: t.Type[C], default: t.Optional[pathlib.Path]
+) -> t.Tuple[typer.Typer, ConfigFile[C]]:
+    Config.set(ConfigFile(file=config, schema=schema, default=default))
     return config_cli, Config.get()

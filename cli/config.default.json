@@ -1,0 +1,36 @@
+{
+    "dev": {
+        "deamon": true,
+        "use_mock": true,
+        "docker_extra": {
+            "compose_files": [
+                "@compose/dev.yaml"
+            ],
+            "profiles": [
+                "dev"
+            ]
+        },
+        "dependencies": [
+            {
+                "name": "firebase-token",
+                "target": "./@compose/secrets/firebase.token",
+                "help_url": "https://firebase.google.com/docs/cli#cli-ci-systems"
+            },
+            {
+                "name": "firebase-project",
+                "target": "./@compose/secrets/firebase.project",
+                "help_url": "https://console.firebase.google.com/"
+            }
+        ]
+    },
+    "docker": {
+        "compose_files": [
+            "docker-compose.yaml",
+            "@compose/dev.yaml"
+        ],
+        "profiles": [
+            "essential",
+            "dev"
+        ]
+    }
+}

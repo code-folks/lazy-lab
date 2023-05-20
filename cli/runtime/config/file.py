@@ -13,15 +13,19 @@ S = t.TypeVar('S', bound=pydantic.BaseModel)
 class ConfigFileError(Exception):
     pass
 
+
 class ConfigValueError(ConfigFileError):
     pass
 
 
 class ConfigFile(t.Generic[S]):
 
-    def __init__(self, file: pathlib.Path, schema: t.Type[S]) -> None:
+    DEFAULT_JSON_INDENT = 4
+
+    def __init__(self, file: pathlib.Path, schema: t.Type[S], default: t.Optional[pathlib.Path] = None) -> None:
         self.file = file
         self.schema = schema
+        self._default = default
         self._config_object = None
         self._create(force=False)
 
@@ -33,7 +37,8 @@ class ConfigFile(t.Generic[S]):
         try:
             return self.schema.parse_file(self.file)
         except pydantic.ValidationError as err:
-            pretty_errors = pydantic.error_wrappers.display_errors(err.errors())
+            pretty_errors = pydantic.error_wrappers.display_errors(
+                err.errors())
             raise ConfigFileError(
                 f"Config file: {self.file}. Seems to be corrupted, fix errors:\n {pretty_errors}"
             )
@@ -49,9 +54,11 @@ class ConfigFile(t.Generic[S]):
 
     @property
     def default_config(self) -> S:
+        if self._default is not None and self._default.exists():
+            return self.schema.parse_file(self._default)
         return self.schema()
 
-    def _create(self, force:bool=False) -> None:
+    def _create(self, force: bool = False) -> None:
         if self.file.exists() and not force:
             return
         if not self.file.exists():
@@ -60,28 +67,30 @@ class ConfigFile(t.Generic[S]):
         self.file.write_text(self.default_config.json())
 
     def _save(self) -> None:
-        cfg = self.config_object.json()
+        cfg = self.config_object.json(indent=ConfigFile.DEFAULT_JSON_INDENT)
         if not self.file.exists():
-            self.file.parent.mkdir(parents=True,exist_ok=True)
+            self.file.parent.mkdir(parents=True, exist_ok=True)
             self.file.touch()
         self.file.write_text(cfg)
 
     def _reload(self):
         self._config_object = self.raw_object
 
-    def _set_with_cast(self, target: pydantic.BaseModel, attr:str, value:t.Any) -> t.Any:
+    def _set_with_cast(self, target: pydantic.BaseModel, attr: str, value: t.Any) -> t.Any:
         if not isinstance(target, pydantic.BaseModel):
             raise RuntimeError("The config model is corrupted")
-        model_fields: t.Dict[str, fields.ModelField] = getattr(target, "__fields__")
+        model_fields: t.Dict[str, fields.ModelField] = getattr(
+            target, "__fields__")
         field_definition: fields.ModelField = model_fields[attr]
         try:
-            setattr(target, attr, tools.parse_obj_as(field_definition.outer_type_, value))
+            setattr(target, attr, tools.parse_obj_as(
+                field_definition.outer_type_, value))
         except pydantic.ValidationError as e:
             error = e.errors().pop()
             raise ConfigValueError(f"Cannot assign `{value}` {error['msg']}")
 
-    def set(self, key:str, value:t.Any, autosave: bool=True) -> None:
-        nested_config, _, attr = key.rpartition(".")        
+    def set(self, key: str, value: t.Any, autosave: bool = True) -> None:
+        nested_config, _, attr = key.rpartition(".")
         target = self.config_object
         nested_getter = attrgetter(nested_config)
         try:
@@ -95,24 +104,25 @@ class ConfigFile(t.Generic[S]):
         if autosave:
             self._save()
 
-
-    def append(self, key:str, value:t.Any, autosave: bool=True) -> None:
+    def append(self, key: str, value: t.Any, autosave: bool = True) -> None:
         target_obj: t.Any = self.get(key)
         if not isinstance(target_obj, t.List):
-            raise ConfigFileError(f"Target config property `{key}` is not appendable.")
+            raise ConfigFileError(
+                f"Target config property `{key}` is not appendable.")
         target_obj.append(value)
         if autosave:
             self._save()
-    
-    def remove(self, key:str, value:t.Any, autosave: bool=True) -> None:
+
+    def remove(self, key: str, value: t.Any, autosave: bool = True) -> None:
         target_obj: t.Any = self.get(key)
         if not isinstance(target_obj, t.List):
-            raise ConfigFileError(f"Target config property `{key}` is not a collection.")
+            raise ConfigFileError(
+                f"Target config property `{key}` is not a collection.")
         target_obj.remove(value)
         if autosave:
             self._save()
 
-    def get(self, key:str) -> t.Any:
+    def get(self, key: str) -> t.Any:
         value_getter = attrgetter(key)
         try:
             val = value_getter(self.config_object)
@@ -126,7 +136,7 @@ class ConfigFile(t.Generic[S]):
         self._config_object = self.default_config
         self._save()
 
-    def restore_key(self, key:str) -> None:
+    def restore_key(self, key: str) -> None:
         value_getter = attrgetter(key)
         default_value = value_getter(self.default_config)
         self.set(key, default_value)

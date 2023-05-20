@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-echo "- Putting all the 🔬 on table."
-pip install -r ./cli/requirements.txt --exists-action s --quiet &> /dev/null
+echo "- Putting all the 🔬 on the table."
+pip install -r ./cli/runtime/requirements.txt --exists-action s --quiet &> /dev/null
 echo "- Making new command executable."
 chmod u+x ./lab
 ./lab --install-completion &> /dev/null

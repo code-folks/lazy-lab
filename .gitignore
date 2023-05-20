@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Project files
+config.local.json
+@compose/dev_data/firebase/config/firebase-debug.log
+@compose/secrets/*

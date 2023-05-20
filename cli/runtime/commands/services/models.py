@@ -14,7 +14,7 @@ from python_on_whales.components.compose.cli_wrapper import ComposeCLI
 from python_on_whales.components.compose.models import ComposeConfigService
 from python_on_whales.exceptions import DockerException
 
-from ..utils import index
+from cli.runtime.utils import index
 
 CONFIG_FILES_LOADERS = {
     "package.json": json.load,
@@ -165,7 +165,10 @@ class ComposableService:
         """ Builds service.
 
         EQUIVALENT OF => `docker compose build *service-name*`."""
-        self.compose.build(self.compose_id, quiet=quiet)
+        console = rich.console.Console(soft_wrap=True)
+        with console.status(f"[dark_orange] Building {self.config.image}...", spinner="dots"):
+            self.compose.build(self.compose_id, quiet=quiet)
+        console.print(f"[dark_orange]:hammer: Done! Image `{self.config.image}` has been built.")
 
     @expose_to_cli
     def run(self, command: str, remove:bool=True):
