@@ -50,13 +50,13 @@ def run(d: bool = True, all: bool = False, build: bool=False, browser:bool=True)
         unresolved = resolve_dependencies(dev_cfg.dependencies, table_name="Development runtime dependencies")    
         if unresolved:
             raise typer.Exit(1)
-    #     with console.status("[plum1] Starting [plum2]development [plum3]envirnoment[plum4]... :rocket:", spinner="moon"):
-    #         docker_client.compose.up(detach=d, abort_on_container_exit=all, wait=d, build=build, quiet=True)
+        with console.status("[plum1] Starting [plum2]development [plum3]envirnoment[plum4]... :rocket:", spinner="moon"):
+            docker_client.compose.up(detach=d, abort_on_container_exit=all, wait=d, build=build, quiet=True)
 
-    # console.print("[cyan3] :spouting_whale: Project started...")
-    # link_to_open = MOCK_GATEWAY_LINK if dev_cfg.use_mock else GATEWAY_LINK
-    # if browser:
-    #     typer.launch(link_to_open)
+    console.print("[cyan3] :spouting_whale: Project started...")
+    link_to_open = MOCK_GATEWAY_LINK if dev_cfg.use_mock else GATEWAY_LINK
+    if browser:
+        typer.launch(link_to_open)
 
 @dev_cli.command("stop")
 def stop():

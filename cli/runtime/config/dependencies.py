@@ -37,6 +37,7 @@ class Dependency(BaseModel):
             return False
         if not value.strip():
             return False
+        self.target.parent.mkdir(parents=True, exist_ok=True)
         self.target.touch()
         self.target.write_text(value)
         rich.print(f"Dependency saved at: [steel_blue1]{self.target}")
