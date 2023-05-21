@@ -3,6 +3,8 @@ import { updateTitleGuard } from './guards';
 
 const About = { template: '<div>About</div>' };
 
+import { authRoute } from '../modules/auth/routes';
+
 
 // Routes Declaration
 export const routes = [
@@ -13,27 +15,8 @@ export const routes = [
 		component: () => import(/* webpackChunkName: 'home' */ '../modules/home/Home.vue'),
 	},
 	// Auth Section
-	{
-		path: '/auth/login',
-		component: () => import(/* webpackChunkName: 'auth' */ '../modules/auth/Auth.vue'),
-		name: 'auth:login',
-		props: { action: 'login' },
-		meta: { title: 'Sign in' }
-	},
-	{
-		path: '/auth/register',
-		component: () => import(/* webpackChunkName: 'auth' */ '../modules/auth/Auth.vue'),
-		name: 'auth:register',
-		props: { action: 'register' },
-		meta: { title: 'Registration' }
-	},
-	{
-		path: '/auth/forgot',
-		component: () => import(/* webpackChunkName: 'auth' */ '../modules/auth/Auth.vue'),
-		name: 'auth:forgot',
-		props: { action: 'forgot' },
-		meta: { title: 'Recover access' }
-	},
+	authRoute,
+
 ];
 
 
