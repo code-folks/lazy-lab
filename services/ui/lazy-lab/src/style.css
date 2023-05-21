@@ -93,6 +93,27 @@
   }
 }
 
+@keyframes wobble {
+  33% {
+      transform: translateX(-48px);
+  }
+  66% {
+      transform: translateX(48px);
+  }
+}
+@keyframes up {
+  0% {
+      opacity: 0;
+  }
+  40%,
+  80% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(-680px);
+  }
+}
 
 a {
   font-weight: 500;

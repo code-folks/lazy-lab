@@ -1,5 +1,5 @@
 <template>
-  <div class="relative overflow-visible w-full h-full md:h-auto md:w-1/2 md:max-w-md grow md:grow-0">
+  <Bubbles class="relative overflow-visible w-full h-full md:h-auto md:w-1/2 md:max-w-md grow md:grow-0">
     <div
       class="relative z-10 flex min-h-full items-center shadow justify-center rounded bg-white px-8 py-16 sm:px-6 lg:px-12">
       <div class="w-full grow max-w-md space-y-8">
@@ -60,22 +60,8 @@
         </div>
       </div>
     </div>
-    <div class="hidden md:block bubble-container absolute h-8 w-8 top-4 left-8">
-      <img class="bubble" src="/img/bubble-2.svg">
-    </div>
-    <div class="hidden md:block bubble-container absolute h-10 w-10 top-4 right-2">
-      <img class="bubble" src="/img/bubble-2.svg">
-    </div>
-    <div class="hidden md:block bubble-container absolute h-16 w-16 top-4 left-24">
-      <img class="bubble" src="/img/bubble-3.svg">
-    </div>
-    <div class="hidden md:block bubble-container absolute h-6 w-6 top-4 right-36">
-      <img class="bubble" src="/img/bubble-4.svg">
-    </div>
-    <div class="hidden md:block bubble-container absolute h-8 w-8 top-4 right-12">
-      <img class="bubble" src="/img/bubble-4.svg">
-    </div>
-  </div>
+
+  </Bubbles>
 </template>
   
 <script lang="ts" setup>
@@ -84,6 +70,7 @@ import { LockClosedIcon } from '@heroicons/vue/20/solid';
 
 import { AuthAction } from './types';
 import { useDev } from '../../composables';
+import Bubbles from '../../components/Bubbles.vue';
 
 const props = defineProps({
   action: {
@@ -96,81 +83,5 @@ console.log(isDev.value);
 </script>
 
 <style lang="scss">
-.bubble {
-  z-index: 1;
-  animation: wobble 4.09s 425ms infinite;
 
-  &:nth-of-type(2) {
-    animation: wobble 4.56s 121ms infinite;
-  }
-
-  &:nth-of-type(3) {
-    animation: wobble 3.63s 211ms infinite;
-  }
-
-  &:nth-of-type(4) {
-    animation: wobble 4.71s 151ms infinite;
-  }
-
-  &:nth-of-type(5) {
-    animation: wobble 3.89s 243ms infinite;
-  }
-
-  &:nth-of-type(6) {
-    animation: wobble 2.88s 107ms infinite;
-  }
-}
-
-.bubble-container {
-  overflow-y: visible;
-
-  &:nth-of-type(2) {
-    animation: up 5.73s 282ms infinite;
-  }
-
-  &:nth-of-type(3) {
-    animation: up 4.12s 150ms infinite;
-  }
-
-  &:nth-of-type(4) {
-    animation: up 5.03s 348ms infinite;
-  }
-
-  &:nth-of-type(5) {
-    animation: up 4.33s 1.25s infinite;
-  }
-
-  &:nth-of-type(6) {
-    animation: up 3.57s 210ms infinite;
-  }
-}
-
-@keyframes wobble {
-
-  33% {
-    transform: translateX(-48px);
-  }
-
-  66% {
-    transform: translateX(48px);
-  }
-
-}
-
-@keyframes up {
-
-  0% {
-    opacity: 0;
-  }
-
-  40%,
-  80% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-680px);
-  }
-
-}</style>
+</style>
