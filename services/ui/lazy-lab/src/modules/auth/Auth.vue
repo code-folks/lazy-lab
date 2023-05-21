@@ -32,7 +32,7 @@
             </div>
 
             <div class="text-sm">
-              <router-link class="font-medium text-zinc-800 hover:text-zinc-600" :to="{name: 'auth:forgot'}">
+              <router-link class="font-medium font-light text-zinc-500 hover:text-zinc-600" :to="{ name: 'auth:forgot' }">
                 Forgot your password?
               </router-link>
             </div>
@@ -44,13 +44,19 @@
               <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                 <LockClosedIcon class="h-5 w-5 text-white" aria-hidden="true" />
               </span>
-              Sign in
+              Sign In with Email
             </button>
           </div>
         </form>
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center"><span class="w-full border-t"></span></div>
+          <div class="relative flex justify-center text-xs uppercase"><span
+              class="bg-background px-2 text-zinc-600">Or continue with</span></div>
+        </div>
         <div class="text-gray-900 text-sm text-center">
           Don't have an account ?
-          <router-link class="text-fuchsia-600 hover:text-fuchsia-500" :to="{name: 'auth:register'}">Create one</router-link>
+          <router-link class="text-fuchsia-600 hover:text-fuchsia-500" :to="{ name: 'auth:register' }">Create
+            one</router-link>
         </div>
       </div>
     </div>
@@ -84,7 +90,7 @@ const props = defineProps({
     type: String as PropType<AuthAction>,
   }
 });
-const { isDev } = useDev() ;
+const { isDev } = useDev();
 console.log(isDev.value);
 
 </script>
@@ -93,18 +99,23 @@ console.log(isDev.value);
 .bubble {
   z-index: 1;
   animation: wobble 4.09s 425ms infinite;
+
   &:nth-of-type(2) {
     animation: wobble 4.56s 121ms infinite;
   }
+
   &:nth-of-type(3) {
     animation: wobble 3.63s 211ms infinite;
   }
+
   &:nth-of-type(4) {
     animation: wobble 4.71s 151ms infinite;
   }
+
   &:nth-of-type(5) {
     animation: wobble 3.89s 243ms infinite;
   }
+
   &:nth-of-type(6) {
     animation: wobble 2.88s 107ms infinite;
   }
@@ -112,6 +123,7 @@ console.log(isDev.value);
 
 .bubble-container {
   overflow-y: visible;
+
   &:nth-of-type(2) {
     animation: up 5.73s 282ms infinite;
   }
