@@ -21,5 +21,9 @@
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "functions": {
+    "codebase": "functions",
+    "runtime": "python311"
   }
 }

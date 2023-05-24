@@ -17,7 +17,7 @@ export function $useDev(domainPattern: string = 'mock'): useDevComposable {
     }
 
     let hostParts = window.location.hostname.split('.');
-    if( hostParts.includes(domainPattern)) {
+    if( hostParts.includes(domainPattern) || import.meta.env.DEV || import.meta.env.MODE === 'development') {
         isDev.value = true;
     }
 
