@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { updateTitleGuard } from './guards';
 
 const About = { template: '<div>About</div>' };
@@ -7,7 +7,7 @@ import { authRoute } from '../modules/auth/routes';
 
 
 // Routes Declaration
-export const routes = [
+export const routes: RouteRecordRaw[] = [
 	{ path: '/about', component: About },
 	// Home Section
 	{ 
@@ -16,7 +16,11 @@ export const routes = [
 	},
 	// Auth Section
 	authRoute,
-
+	{
+		path: '/app',
+		component: () => import(/* webpackChunkName: 'home' */ '../layouts/shell/Shell.vue'),
+		name: 'shell'
+	}
 ];
 
 

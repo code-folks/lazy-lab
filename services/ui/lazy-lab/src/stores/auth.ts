@@ -1,15 +1,17 @@
 import { defineStore } from 'pinia';
-import { useAuth as $useAuth } from '@vueuse/firebase';
 
-import { inMemoryPersistence, signInWithEmailAndPassword } from 'firebase/auth';
+import { inMemoryPersistence, signInWithEmailAndPassword, User } from 'firebase/auth';
 
 import { useFirebase } from '../firebase/useFirebase';
-import { Ref, ref } from 'vue';
+import { Ref, ref, computed } from 'vue';
 
 
 export const useAuth = defineStore('auth', () => {
   const { auth } = useFirebase();
-  const { isAuthenticated, user } = $useAuth(auth);
+  const user: Ref<User | null> = ref(auth.currentUser);
+  const isAuthenticated = computed(() => !!user);
+
+  auth.onAuthStateChanged((userState: User | null) => user.value = userState);
 
   const isLoading: Ref<boolean> = ref(false);
 

@@ -18,9 +18,9 @@ function $useFirebase(): useFirebaseComposable {
     const { isDev } = useDev();
     const firebaseApp: FirebaseApp = initializeApp(firebaseConfig);
     const firebaseAuth: Auth = getAuth(firebaseApp);
-
+    console.log(firebaseAuth)
     if(unref(isDev)) {
-        connectAuthEmulator(firebaseAuth, emulatorsConfig.auth.url);
+        connectAuthEmulator(firebaseAuth, emulatorsConfig.auth.url, { disableWarnings: true });
     } 
     console.log(emulatorsConfig);
     return {

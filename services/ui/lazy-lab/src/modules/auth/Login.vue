@@ -61,6 +61,7 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import { LockClosedIcon } from '@heroicons/vue/20/solid';
 import { useAuth } from '../../stores/auth';
 
@@ -73,10 +74,11 @@ const formState = reactive(
 )
 
 const { signIn } = useAuth();
+const router = useRouter();
 
 function login() {
   const loginPromise = signIn(formState.email, formState.password, formState.rememberMe);
-  loginPromise.then(console.log).catch(console.log);
+  loginPromise.then(() => router.push({name: 'shell'})).catch(console.log);
 }
 
 
