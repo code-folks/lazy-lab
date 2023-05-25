@@ -1,7 +1,7 @@
-import { defineStore} from 'pinia' ;
+import { defineStore } from 'pinia';
 import { useAuth as $useAuth } from '@vueuse/firebase';
 
-import { User, UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
+import { inMemoryPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { useFirebase } from '../firebase/useFirebase';
 import { Ref, ref } from 'vue';
@@ -13,10 +13,16 @@ export const useAuth = defineStore('auth', () => {
 
   const isLoading: Ref<boolean> = ref(false);
 
-  function signIn(username:string, password: string) {
+  function signIn(username: string, password: string, remember: boolean = true) {
     isLoading.value = true;
-    return signInWithEmailAndPassword(auth, username, password).finally(
-      () => { 
+    let signInPromise = signInWithEmailAndPassword(auth, username, password);
+    if (!remember) {
+      signInPromise = auth.setPersistence(inMemoryPersistence).then(
+        () => signInWithEmailAndPassword(auth, username, password)
+      )
+    }
+    return signInPromise.finally(
+      () => {
         isLoading.value = false;
       }
     )
