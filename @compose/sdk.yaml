@@ -5,5 +5,7 @@ services:
       generate -i http://nginx/api/openapi.json -g typescript-axios -o /ui/sdk/auto-client --additional-properties=withInterfaces=true
     volumes:
       - ./services/ui//src/sdk:/ui/sdk
+    networks:
+      - core
     profiles:
       - sdk

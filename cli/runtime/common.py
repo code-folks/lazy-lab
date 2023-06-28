@@ -14,11 +14,14 @@ CLI_CONFIG_FILE: pathlib.Path = PROJECT_DIR / "config.local.json"
 CLI_DEFAULT_CONFIG: pathlib.Path = CLI_DIR / "config.default.json"
 
 
-def get_docker_client(cfg: t.Optional[ComposeConfig]=None) -> DockerClient:
+def get_docker_client(cfg: t.Optional[ComposeConfig]=None, env_file: t.Optional[str]=None) -> DockerClient:
     if cfg is None:
         return DockerClient(compose_project_directory=PROJECT_DIR)
     return DockerClient(
-        compose_files=cfg.compose_files, compose_profiles=cfg.profiles, compose_project_directory=PROJECT_DIR
+        compose_files=cfg.compose_files,
+        compose_profiles=cfg.profiles,
+        compose_project_directory=PROJECT_DIR,
+        compose_env_file=env_file
     )
 
 

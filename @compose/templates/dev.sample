@@ -1,0 +1,18 @@
+# Django
+AUTOMIGRATE=True
+DEBUG=True
+SECRET_KEY={{django.secret.key:autotoken}}
+ROOT_PATH=/api
+ALLOWED_HOSTS=*
+DATABASE_URL={{django.db.url}}
+
+# PostgreSQL
+POSTGRES_DATABASE=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_HOST=
+POSTGRES_PORT=
+
+# Vue
+VUE_APP_APPWRITE_PROJECT_ID={{appwrite.project.id}}
+VUE_APP_APPWRITE_ENDPOINT=http://localhost:9880/v1

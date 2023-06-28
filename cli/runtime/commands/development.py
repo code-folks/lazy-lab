@@ -20,10 +20,10 @@ MOCK_GATEWAY_LINK = "http://mock.localhost:8080/auth/login"
 
 
 @contextmanager
-def dev_client():
+def dev_client(env_file:t.Optional[str]=None):
     cfg = DEV_CFG.get()
-    merged_config = merge_compose_configs(cfg.docker, cfg.dev.docker_extra)
-    docker_client = get_docker_client(cfg=merged_config)
+    merged_config = merge_compose_configs(cfg.docker, cfg.dev.docker)
+    docker_client = get_docker_client(cfg=merged_config, env_file=env_file)
     try:
         yield docker_client
     except DockerException as err:
@@ -41,19 +41,25 @@ def build():
 
 @dev_cli.command("run")
 @dev_cli.command("start")
-def run(d: bool = True, all: bool = False, build: bool=False, browser:bool=True):
+def run(d: bool = True, all: bool = False, build: bool=False, browser:bool=False):
     """ Starts the development envirnoment using the configured deveopment files. """
     dev_cfg = DEV_CFG.get().dev
     link_to_open = MOCK_GATEWAY_LINK if dev_cfg.use_mock else GATEWAY_LINK
-    with dev_client() as docker_client:
-        console = rich.console.Console(soft_wrap=True)
-        console.print("Checking dependencies...:\n")
-        unresolved = resolve_dependencies(dev_cfg.dependencies, table_name="Development runtime dependencies")    
+    console = rich.console.Console(soft_wrap=True)
+    for step in dev_cfg.start_steps:
+        console.print(f"Checking dependencies for {step.name} ...\n")
+        unresolved = resolve_dependencies(step.dependencies, table_name=f"{step.name} step runtime dependencies")    
         if unresolved:
             raise typer.Exit(1)
-        with console.status("[plum1] Starting [plum2]development [plum3]envirnoment[plum4]... :rocket:", spinner="moon"):
-            docker_client.compose.up(detach=d, abort_on_container_exit=all, wait=d, build=build, quiet=True)
-            url_ready(link_to_open)
+        with dev_client(step.env_file) as docker_client:
+            docker_client.client_config.compose_env_file 
+            with console.status(f"[plum1] Running step: [plum2]{step.name} [plum4]... :rocket:", spinner="moon"):
+                console.print(f"Using env: {step.env_file}")
+                console.print(f"Starting services: {', '.join(step.services)}")
+                docker_client.compose.up(services=step.services, detach=d, abort_on_container_exit=all, wait=d, build=build, quiet=True, remove_orphans=True)
+        if step.ready_url:
+            with console.status(f"[plum1] Wait for step [plum2]`{step.name}` [plum4] to be ready... :rocket:"):
+                url_ready(step.ready_url, timeout=20)
     console.print("[cyan3] :spouting_whale: Project started...")
     if browser:
         typer.launch(link_to_open)

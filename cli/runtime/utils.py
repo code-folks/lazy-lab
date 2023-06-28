@@ -66,4 +66,4 @@ def url_ready(url: str, timeout: int=10, max_retry:int = 3):
         if delta.seconds >= timeout:
             return
         time.sleep(timeout/max_retry)
-        response = requests.get(url=url)
+        response = requests.get(url=url, timeout=5)

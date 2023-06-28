@@ -4,9 +4,8 @@
             <div class="menu shadow-md bg-neutral-900 lg:rounded-l-lg"></div>
             <div class="search-bar border-r border-b border-zinc-100"> </div>
             <aside class="side-content border-r border-zinc-100"></aside>
-            
             <header
-                class="container content-header p-3 max-w-screen-xl flex flex-row justify-between items-center flex-nowrap border-b border-zinc-100">
+                class="container content-header px-3 py-2 max-w-screen-xl flex flex-row justify-between items-center flex-nowrap border-b border-zinc-100">
                 <div class="w-1/3"></div>
                 <Profile class=""></Profile>
             </header>
@@ -52,5 +51,6 @@ import Profile from '../../components/Profile.vue';
 
 .menu {
     grid-area: 1 / 1 / 4 / 2;
+    transform: scale(1.005);
 }
 </style>

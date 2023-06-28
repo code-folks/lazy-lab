@@ -2,35 +2,78 @@
     "dev": {
         "deamon": true,
         "use_mock": true,
-        "docker_extra": {
+        "docker": {
             "compose_files": [
+                "@compose/appwrite.yaml",
                 "@compose/dev.yaml"
             ],
             "profiles": [
-                "dev"
+                "dev",
+                "appwrite"
             ]
         },
-        "dependencies": [
+        "start_steps": [
             {
-                "name": "firebase-token",
-                "target": "./@compose/secrets/firebase.token",
-                "help_url": "https://firebase.google.com/docs/cli#cli-ci-systems"
+                "name": "Run AppWrite",
+                "services": [
+                    "redis",
+                    "influxdb",
+                    "mariadb",
+                    "appwrite",
+                    "appwrite-executor",
+                    "appwrite-maintenance",
+                    "appwrite-realtime",
+                    "appwrite-schedule",
+                    "appwrite-usage",
+                    "appwrite-worker-audits",
+                    "appwrite-worker-builds",
+                    "appwrite-worker-certificates",
+                    "appwrite-worker-databases",
+                    "appwrite-worker-deletes",
+                    "appwrite-worker-functions",
+                    "appwrite-worker-mails",
+                    "appwrite-worker-messaging",
+                    "appwrite-worker-webhooks",
+                    "telegraf",
+                    "traefik"
+                ],
+                "env_file": "./@compose/envs/appwrite.env",
+                "ready_url": "http://localhost:9880/login",
+                "dependencies": [
+                    {
+                        "name": "appwrite.env",
+                        "target": "./@compose/envs/appwrite.env",
+                        "template": "./@compose/templates/appwrite.sample",
+                        "help_url": "https://appwrite.io/docs/environment-variables#general"
+                    }
+                ]
             },
             {
-                "name": "firebase-project",
-                "target": "./@compose/secrets/firebase.project",
-                "help_url": "https://console.firebase.google.com/"
+                "name": "Run Core",
+                "services": [
+                    "api-mock",
+                    "db",
+                    "core",
+                    "ui",
+                    "gateway"
+                ],
+                "dependencies": [
+                    {
+                        "name": "dev.env",
+                        "target": "./@compose/envs/dev.env",
+                        "template": "./@compose/templates/dev.sample",
+                        "help_url": "http://localhost:9880/login"
+                    }
+                ]
             }
         ]
     },
     "docker": {
         "compose_files": [
-            "docker-compose.yaml",
-            "@compose/dev.yaml"
+            "docker-compose.yaml"
         ],
         "profiles": [
-            "essential",
-            "dev"
+            "essential"
         ]
     }
 }
