@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { useAppWrite } from '../composables';
 
 
 import { Ref, ref, computed } from 'vue';
@@ -8,7 +9,7 @@ export const useAuth = defineStore('auth', () => {
   // const { auth } = useFirebase();
   const user: Ref<null> = ref(null);
   const isAuthenticated = computed(() => !!user);
-
+  const { client } = useAppWrite();
 
   const isLoading: Ref<boolean> = ref(false);
 

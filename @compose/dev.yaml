@@ -5,8 +5,13 @@ volumes:
 x-dev: &shared-dev
   restart: "no"
   env_file: ./@compose/envs/dev.env
+  networks:
+    - dev
   profiles:
     - dev
+
+networks:
+  dev:
 
 services:
 # -------------------------------------------------

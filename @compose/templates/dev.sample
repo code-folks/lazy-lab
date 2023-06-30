@@ -13,6 +13,6 @@ POSTGRES_PASSWORD=
 POSTGRES_HOST=
 POSTGRES_PORT=
 
-# Vue
-VUE_APP_APPWRITE_PROJECT_ID={{appwrite.project.id}}
-VUE_APP_APPWRITE_ENDPOINT=http://localhost:9880/v1
+# Vue + Vite
+VITE_APPWRITE_PROJECT_ID={{appwrite.project.id}}
+VITE_APPWRITE_ENDPOINT=http://localhost:9880/v1

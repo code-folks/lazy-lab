@@ -5,6 +5,9 @@ volumes:
 # We cache pip so we dont need to populate it everytime
   pip-cache:
 
+networks:
+  core:
+
 x-common:
   &common
   restart: on-failure
@@ -14,7 +17,6 @@ x-common:
     options:
       max-size: "5k"
       max-file: "2"
-
 # ==================================
 services:
 # ----------------------------------
@@ -57,6 +59,3 @@ services:
       - essential
       - sdk
     <<: *common
-
-networks:
-  core:
