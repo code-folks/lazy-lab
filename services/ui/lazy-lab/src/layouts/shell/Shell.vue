@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full grow flex bg-gray-200 lg:p-4">
+    <div class="w-full max-h-screen grow flex bg-gray-200 lg:p-4 z-1">
         <div class="shell-container bg-white relative shadow-md rounded-lg container p-0 shrink-0">
             <aside class="menu rounded-l-lg flex flex-col justify-between gap-y-12 p-8 border-r border-neutral-100">
                 <div class="logo-container p-2 flex items-center justify-center">
@@ -62,24 +62,51 @@
                     </div>
                 </div>
             </aside>
-            <div class="search-bar"> </div>
             <header
-                class="content-header container rounded-tr-lg bg-white px-3 py-2 max-w-screen-xl flex flex-row justify-between items-center flex-nowrap">
-                <div class="w-1/3"></div>
-                
+                class="content-header rounded-tr-lg bg-white p-8 flex flex-row justify-between items-center flex-nowrap">
+                <div class="w-1/2">
+                    <h2 class="text-3xl font-semibold">Overview</h2>
+                    <span class="text-sm text-neutral-400">Quick preview for all activities.</span>
+
+                </div>
+                <div class="w-1/2 flex items-center justify-end gap-x-4">
+                    <form class="max-w-sm">
+                        <div class="relative">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-600 left-3" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <input type="text" placeholder="Search"
+                            class="w-full py-2 pl-12 pr-4 text-neutral-800 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-fuchsia-400" />
+                        </div>
+                    </form>
+                    <button
+                        className="relative px-2.5 py-2.5 text-neutral-600 duration-150 bg-neutral-100 rounded-lg hover:bg-fuchsia-50">
+                        <BellIcon class="h-6 w-6" aria-hidden="true" />
+                        <div
+                            className="absolute -top-0.5 -right-1 w-5 h-5 grid place-items-center text-xs text-neutral-50 rounded-full bg-fuchsia-400">
+                            2</div>
+                    </button>
+                </div>
             </header>
-            <main class="main-content bg-white rounded-br-lg">
-                <div></div>
-                <div></div>
+            <main class="main-content bg-white rounded-br-lg flex items-center justify-center overflow-y-hidden">
+                <Bubbles :count=6 :opacity=0.66 :speed=0.66 :scale="0.66">   
+                    <div class="relative p-8 py-6 rounded-lg shadow-inner bg-neutral-50 text-neutral-400 z-20">
+                        There are no items yet, go ahead and add something!
+                    </div>
+                </Bubbles>
+
             </main>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { HomeIcon, BriefcaseIcon, ServerStackIcon, WrenchScrewdriverIcon, ChatBubbleLeftRightIcon, QrCodeIcon, Cog8ToothIcon, PowerIcon } from '@heroicons/vue/24/outline';
+import { HomeIcon, BriefcaseIcon, ServerStackIcon, WrenchScrewdriverIcon, ChatBubbleLeftRightIcon, QrCodeIcon, Cog8ToothIcon, PowerIcon, BellIcon } from '@heroicons/vue/24/outline';
+import Bubbles from '../../components/Bubbles.vue';
 
-import Profile from '../../components/Profile.vue';
 import { useAuth } from '@/stores/auth';
 
 
@@ -91,7 +118,7 @@ const auth = useAuth();
 .shell-container {
     display: grid;
     grid-template-columns: 4fr 6fr 15fr;
-    grid-template-rows: 1fr 12fr 2fr;
+    grid-template-rows: minmax(120px, 2fr) 14fr 2fr;
     grid-column-gap: 2rem;
     grid-row-gap: 0;
     max-height: 100%;
@@ -102,13 +129,14 @@ const auth = useAuth();
 }
 
 .content-header {
-    grid-area: 1 / 3 / 2 / 4;
+    grid-area: 1 / 2 / 2 / 4;
+    font-family: Poppins;
 }
 
 .main-content {
     grid-area: 2 / 2 / 4 / 4;
-    display: grid;
-    grid-template-columns: 6fr 15fr;
+    // display: grid;
+    // grid-template-columns: 6fr 15fr;
 }
 
 .menu {

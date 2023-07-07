@@ -18,9 +18,21 @@ const props = defineProps({
     zIndex: {
         type: Number,
         default: 1,
-    }
+    },
+    opacity: {
+        type: Number,
+        default: 1,
+    },
+    speed: {
+        type: Number,
+        default: 1,
+    },
+    scale: {
+        type: Number,
+        default: 1,
+    },
 });
-const { bubbles } = useBubbles(props.count, props.zIndex);
+const { bubbles } = useBubbles(props.count, props.zIndex, props.speed, props.opacity, props.scale);
 </script>
 <style lang="scss">
 .bubbles-container {
