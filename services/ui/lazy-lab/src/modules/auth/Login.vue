@@ -1,7 +1,7 @@
 <template>
   <div class="w-full grow max-w-md space-y-8">
     <div>
-      <img class="mx-auto h-16 w-auto" src="/logos/lazy-lab-logo-7b.svg" alt="Your Company" />
+      <img class="mx-auto h-16 w-auto" src="/logos/lazy-lab-logo-9.svg" alt="Lazy Lab Logo" />
       <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-zinc-800">Sign in to your account</h2>
     </div>
     <form class="mt-8 space-y-8">
@@ -24,7 +24,7 @@
 
       <div class="flex items-center justify-between">
         <div class="flex items-center">
-          <input id="remember-me" name="remember-me" type="checkbox" v-model="formState.rememberMe"
+          <input id="remember-me" name="remember-me" type="checkbox" v-model="auth.rememberMe"
             class="h-4 w-4 rounded border-gray-300 text-fuchsia-500 focus:ring-fuchsia-500" />
           <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
         </div>
@@ -69,15 +69,14 @@ const formState = reactive(
   {
     email: '',
     password: '',
-    rememberMe: true,
   }
 )
 
-const { signIn } = useAuth();
+const auth = useAuth();
 const router = useRouter();
 
 function login() {
-  const loginPromise = signIn(formState.email, formState.password, formState.rememberMe);
+  const loginPromise = auth.signIn(formState.email, formState.password);
   loginPromise.then(() => router.push({name: 'shell'})).catch(console.log);
 }
 
