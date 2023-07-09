@@ -83,11 +83,9 @@
                         </div>
                     </form>
                     <button
-                        className="relative px-2.5 py-2.5 text-neutral-600 duration-150 bg-neutral-100 rounded-lg hover:bg-fuchsia-50">
+                        className="relative px-2.5 py-2.5 text-neutral-600 duration-150 bg-neutral-100 rounded-lg hover:bg-fuchsia-50" @click="test++">
                         <BellIcon class="h-6 w-6" aria-hidden="true" />
-                        <div
-                            className="absolute -top-0.5 -right-1 w-5 h-5 grid place-items-center text-xs text-neutral-50 rounded-full bg-fuchsia-400">
-                            2</div>
+                        <Notifier :count="test"> </Notifier>
                     </button>
                 </div>
             </header>
@@ -104,11 +102,15 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 import { HomeIcon, BriefcaseIcon, ServerStackIcon, WrenchScrewdriverIcon, ChatBubbleLeftRightIcon, QrCodeIcon, Cog8ToothIcon, PowerIcon, BellIcon } from '@heroicons/vue/24/outline';
-import Bubbles from '../../components/Bubbles.vue';
+import { Bubbles } from '../../components/Bubbles';
+import { Notifier } from '../../components/Notifier';
 
 import { useAuth } from '@/stores/auth';
 
+const test = ref(0);
 
 const auth = useAuth();
 
@@ -135,8 +137,6 @@ const auth = useAuth();
 
 .main-content {
     grid-area: 2 / 2 / 4 / 4;
-    // display: grid;
-    // grid-template-columns: 6fr 15fr;
 }
 
 .menu {

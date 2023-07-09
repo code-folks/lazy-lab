@@ -9,7 +9,7 @@
 </template>
   
 <script lang="ts" setup>
-import Bubbles from '../../components/Bubbles.vue';
+import { Bubbles } from '@/components/Bubbles';
 
 </script>
 
