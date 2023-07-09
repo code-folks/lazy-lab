@@ -51,7 +51,6 @@
             {
                 "name": "Run Core",
                 "services": [
-                    "api-mock",
                     "db",
                     "core",
                     "ui",

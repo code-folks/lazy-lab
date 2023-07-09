@@ -53,13 +53,4 @@ services:
       - ./services/core-api/app/static:/www/public/static
       - ./@compose/dev_data/gateway/dev.conf:/etc/nginx/nginx.conf:ro
     <<: *shared-dev
-# -------------------------------------------------
-  api-mock:
-    image: ${COMPOSE_PROJECT_NAME}-mockoon
-    build:
-      args:
-        - MOCKOON_VERSION=3.0.0
-      context: ./@compose/dev_data/mockoon
-    volumes:
-      - ./@compose/dev_data/mockoon/runtime_data:/runtime_data
-    <<: *shared-dev
+
