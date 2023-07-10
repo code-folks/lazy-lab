@@ -39,28 +39,7 @@
                     </div>
 
                 </ul>
-                <div class="avatar-holder flex flex-col items-center gap-y-3">
-                    <div className="relative w-14 h-14">
-                        <span
-                            className="absolute -bottom-px right-1 w-3 h-3 rounded-full border border-white bg-green-500"></span>
-                        <img src="https://images.unsplash.com/photo-1510227272981-87123e259b17?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=3759e09a5b9fbe53088b23c615b6312e"
-                            className="w-full h-full rounded-full" />
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <span class="text-neutral-700 font-semibold text-sm">{{ auth.user?.name }}</span>
-                        <span class="user-email text-neutral-400 text-xs">{{ auth.user?.email }}</span>
-                    </div>
-                    <div class="flex gap-x-4">
-                        <button
-                            className="px-2.5 py-2.5 text-neutral-600 duration-150 bg-neutral-100 rounded-lg hover:bg-fuchsia-100 active:bg-fuchsia-200">
-                            <Cog8ToothIcon class="h-6 w-6" aria-hidden="true" />
-                        </button>
-                        <button
-                            className="px-2.5 py-2.5 text-neutral-600 duration-150 bg-neutral-100 rounded-lg hover:bg-fuchsia-100 active:bg-fuchsia-200">
-                            <PowerIcon class="h-6 w-6" aria-hidden="true" />
-                        </button>
-                    </div>
-                </div>
+                <Profile></Profile>
             </aside>
             <header
                 class="content-header rounded-tr-lg bg-white p-8 flex flex-row justify-between items-center flex-nowrap">
@@ -104,9 +83,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import { HomeIcon, BriefcaseIcon, ServerStackIcon, WrenchScrewdriverIcon, ChatBubbleLeftRightIcon, QrCodeIcon, Cog8ToothIcon, PowerIcon, BellIcon } from '@heroicons/vue/24/outline';
-import { Bubbles } from '../../components/Bubbles';
-import { Notifier } from '../../components/Notifier';
+import { HomeIcon, BriefcaseIcon, ServerStackIcon, WrenchScrewdriverIcon, ChatBubbleLeftRightIcon, QrCodeIcon, BellIcon } from '@heroicons/vue/24/outline';
+import { Bubbles } from '@/components/Bubbles';
+import { Notifier } from '@/components/Notifier';
+import { Profile } from '@/components/Profile';
 
 import { useAuth } from '@/stores/auth';
 

@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -55,6 +55,9 @@
     --ring: 215 20.2% 65.1%;
 
     --radius: 1rem;
+    --lab-blue: rgba(0,219,222,1);
+    --lab-fuhsia: rgba(252,0,255,1);
+    --lab-gradient: linear-gradient(145deg, var(--lab-blue)  0%, var(--lab-fuhsia) 100%);
   }
 
   .dark {
@@ -109,6 +112,65 @@
 
   66% {
     transform: translateX(48px);
+  }
+}
+
+@keyframes jump {
+  0%{
+    transform: translateY(0px);
+  }
+  16% {
+    transform: translateY(-3px);
+  }
+  36% {
+    transform: translateY(0px);
+    transform: scaleX(1.12);
+  }
+  38% {
+    transform: scaleX(1);
+  }
+  42% {
+    transform: translateY(-2px);
+  }
+  48% {
+    transform: translateY(0px);
+    transform: scaleX(1.1);
+  }
+  50% {
+    transform: scaleX(1);  
+  }
+  56% {
+    transform: translateY(-3px);
+  }
+  60% {
+    transform: translateY(0px);
+    transform: scaleX(1.12);
+  }
+  62%{
+    transform: scaleX(1);
+  }
+  68% {
+    transform: translateY(-1px);
+  }
+  76% {
+    transform: translateY(0px);
+    transform: scaleX(1.06);
+  }
+  77% {
+    transform: scaleX(1);
+  }
+  86% {
+    transform: translateY(-2px);
+  }
+  94% {
+    transform: translateY(0px);
+    transform: scaleX(1.1);
+  }
+  86% {
+    transform: scaleX(1);
+  }
+  98% {
+    transform: translateY(-1px);
   }
 }
 

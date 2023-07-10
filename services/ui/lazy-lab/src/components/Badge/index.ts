@@ -1,1 +1,5 @@
-export * as Badge from './Badge.vue'; 
+import Badge from './Badge.vue'; 
+
+export {
+    Badge,
+}
